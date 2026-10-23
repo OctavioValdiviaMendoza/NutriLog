@@ -1,10 +1,30 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function Home() {
+  const [userName, setUserName] = useState("there");
+
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("nutrilog_user");
+    if (!storedUser) return;
+
+    try {
+      const user = JSON.parse(storedUser) as { name?: string };
+      if (user.name) setUserName(user.name);
+    } catch {
+      sessionStorage.removeItem("nutrilog_user");
+    }
+  }, []);
+
   return (
     <main className="min-h-screen bg-green-50 px-6 py-10 text-gray-900">
       <div className="mx-auto max-w-5xl">
         <header className="mb-10 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-green-700">Welcome back</p>
+            <p className="text-sm font-medium text-green-700">
+              Welcome back, {userName}
+            </p>
             <h1 className="text-4xl font-bold text-green-950">NutriLog</h1>
           </div>
 

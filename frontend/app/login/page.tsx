@@ -1,10 +1,12 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,7 +31,8 @@ export default function LoginPage() {
         throw new Error(data.detail ?? "Unable to log in.");
       }
 
-      setMessage(`Welcome back, ${data.name}.`);
+      sessionStorage.setItem("nutrilog_user", JSON.stringify(data));
+      router.push("/dashboard");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Unable to log in.");
     } finally {

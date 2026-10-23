@@ -1,41 +1,51 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
-  const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage("");
-    setIsSubmitting(true);
 
-    const form = new FormData(event.currentTarget);
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+    setError("");
+    setLoading(true);
 
     try {
-      const response = await fetch(`${apiUrl}/auth/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.get("name"),
-          email: form.get("email"),
-          password: form.get("password"),
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        }
+      );
 
       const data = await response.json();
+
       if (!response.ok) {
-        throw new Error(data.detail ?? "Unable to create your account.");
+        setError(data.detail || "Unable to create account.");
+        return;
       }
 
-      setMessage(`Account created for ${data.name}.`);
-      event.currentTarget.reset();
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Unable to create your account.");
+      router.push("/onboarding/goals");
+    } catch {
+      setError("Unable to connect to the backend.");
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   }
 
@@ -53,43 +63,67 @@ export default function SignupPage() {
           Start tracking your nutrition with NutriLog.
         </p>
 
-        <label className="mb-2 block font-medium text-black">Name</label>
+        <label
+          htmlFor="name"
+          className="mb-2 block font-medium text-black"
+        >
+          Name
+        </label>
+
         <input
+          id="name"
           name="name"
           type="text"
-          placeholder="Your name"
-          className="mb-5 w-full rounded-xl border px-4 py-3 text-gray-700"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          className="mb-5 w-full rounded-xl border px-4 py-3 text-black"
           required
         />
 
-        <label className="mb-2 block font-medium text-black">Email</label>
+        <label
+          htmlFor="email"
+          className="mb-2 block font-medium text-black"
+        >
+          Email
+        </label>
+
         <input
+          id="email"
           name="email"
           type="email"
-          placeholder="you@example.com"
-          className="mb-5 w-full rounded-xl border px-4 py-3 text-gray-700"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className="mb-5 w-full rounded-xl border px-4 py-3 text-black"
           required
         />
 
-        <label className="mb-2 block font-medium text-black">Password</label>
+        <label
+          htmlFor="password"
+          className="mb-2 block font-medium text-black"
+        >
+          Password
+        </label>
+
         <input
+          id="password"
           name="password"
           type="password"
-          placeholder="Create a password"
-          className="mb-6 w-full rounded-xl border px-4 py-3 text-gray-700"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          className="mb-6 w-full rounded-xl border px-4 py-3 text-black"
           required
         />
 
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="w-full rounded-full bg-green-700 px-6 py-3 font-semibold text-white hover:bg-green-800"
+          disabled={loading}
+          className="w-full rounded-full bg-green-700 px-6 py-3 font-semibold text-white hover:bg-green-800 disabled:opacity-50"
         >
-          {isSubmitting ? "Creating account..." : "Create account"}
+          {loading ? "Creating account..." : "Create account"}
         </button>
 
-        {message && (
-          <p className="mt-4 text-center text-sm text-green-700">{message}</p>
+        {error && (
+          <p className="mt-4 text-center text-sm text-red-600">{error}</p>
         )}
       </form>
     </main>

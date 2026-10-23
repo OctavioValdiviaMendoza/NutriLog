@@ -24,30 +24,30 @@ export default function SignupPage() {
           Start tracking your nutrition with NutriLog.
         </p>
 
-        <label className="mb-2 block font-medium">Name</label>
+        <label className="mb-2 block font-medium text-black">Name</label>
         <input
           name="name"
           type="text"
           placeholder="Your name"
-          className="mb-5 w-full rounded-xl border px-4 py-3"
+          className="mb-5 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
         />
 
-        <label className="mb-2 block font-medium">Email</label>
+        <label className="mb-2 block font-medium text-black">Email</label>
         <input
           name="email"
           type="email"
           placeholder="you@example.com"
-          className="mb-5 w-full rounded-xl border px-4 py-3"
+          className="mb-5 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
         />
 
-        <label className="mb-2 block font-medium">Password</label>
+        <label className="mb-2 block font-medium text-black">Password</label>
         <input
           name="password"
           type="password"
           placeholder="Create a password"
-          className="mb-6 w-full rounded-xl border px-4 py-3"
+          className="mb-6 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
         />
 

@@ -24,21 +24,21 @@ export default function LoginPage() {
           Log in to view your nutrition dashboard.
         </p>
 
-        <label className="mb-2 block font-medium">Email</label>
+        <label className="mb-2 block font-medium text-black">Email</label>
         <input
           name="email"
           type="email"
           placeholder="you@example.com"
-          className="mb-5 w-full rounded-xl border px-4 py-3"
+          className="mb-5 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
         />
 
-        <label className="mb-2 block font-medium">Password</label>
+        <label className="mb-2 block font-medium text-black">Password</label>
         <input
           name="password"
           type="password"
           placeholder="Your password"
-          className="mb-6 w-full rounded-xl border px-4 py-3"
+          className="mb-6 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
         />
 

@@ -37,7 +37,17 @@ export default function SignupPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.detail || "Unable to create account.");
+        let errorMessage = "Unable to create account.";
+        
+        if (typeof data.detail === "string") {
+          errorMessage = data.detail;
+        }else if (Array.isArray(data.detail)) {
+          errorMessage = data.detail.map((item: { msg?: string }) => item.msg || "Invalid input").join(", ");
+        } else if (data.detail?.msg) {
+          errorMessage = data.detail.msg;
+        }
+
+        setError(errorMessage);
         return;
       }
 

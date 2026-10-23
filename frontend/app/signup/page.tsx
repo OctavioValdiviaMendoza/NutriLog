@@ -4,10 +4,39 @@ import { FormEvent, useState } from "react";
 
 export default function SignupPage() {
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage("Signup is not connected to the backend yet.");
+    setMessage("");
+    setIsSubmitting(true);
+
+    const form = new FormData(event.currentTarget);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+    try {
+      const response = await fetch(`${apiUrl}/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.get("name"),
+          email: form.get("email"),
+          password: form.get("password"),
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.detail ?? "Unable to create your account.");
+      }
+
+      setMessage(`Account created for ${data.name}.`);
+      event.currentTarget.reset();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Unable to create your account.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -53,9 +82,10 @@ export default function SignupPage() {
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full rounded-full bg-green-700 px-6 py-3 font-semibold text-white hover:bg-green-800"
         >
-          Create account
+          {isSubmitting ? "Creating account..." : "Create account"}
         </button>
 
         {message && (

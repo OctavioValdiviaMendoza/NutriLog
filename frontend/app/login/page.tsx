@@ -4,10 +4,37 @@ import { FormEvent, useState } from "react";
 
 export default function LoginPage() {
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage("Login is not connected to the backend yet.");
+    setMessage("");
+    setIsSubmitting(true);
+
+    const form = new FormData(event.currentTarget);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+    try {
+      const response = await fetch(`${apiUrl}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: form.get("email"),
+          password: form.get("password"),
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.detail ?? "Unable to log in.");
+      }
+
+      setMessage(`Welcome back, ${data.name}.`);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Unable to log in.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -44,9 +71,10 @@ export default function LoginPage() {
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full rounded-full bg-green-700 px-6 py-3 font-semibold text-white hover:bg-green-800"
         >
-          Log in
+          {isSubmitting ? "Logging in..." : "Log in"}
         </button>
 
         {message && (

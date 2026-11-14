@@ -1,21 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { getUser } from "@/lib/session";
 
 export default function Home() {
-  const [userName, setUserName] = useState("there");
-
-  useEffect(() => {
-    const storedUser = sessionStorage.getItem("nutrilog_user");
-    if (!storedUser) return;
-
-    try {
-      const user = JSON.parse(storedUser) as { name?: string };
-      if (user.name) setUserName(user.name);
-    } catch {
-      sessionStorage.removeItem("nutrilog_user");
-    }
-  }, []);
+  const [userName] = useState(() => getUser()?.name ?? "there");
 
   return (
     <main className="min-h-screen bg-green-50 px-6 py-10 text-gray-900">

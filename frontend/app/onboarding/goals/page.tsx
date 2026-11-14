@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { calculateBmr as requestBmr } from "@/lib/api";
 
 export default function GoalsPage() {
   const router = useRouter();
@@ -46,34 +47,20 @@ export default function GoalsPage() {
       setBmrError("");
 
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"}/calculations/bmr`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            signal: controller.signal,
-            body: JSON.stringify({
-              gender,
-              age,
-              activity_level: activityLevel,
-              weight_lbs: weightLbs,
-              height_feet: heightFeetValue,
-              height_inches: heightInchesValue,
-            }),
-          },
-        );
+        const data = await requestBmr({
+          gender: gender as "male" | "female",
+          age: age as number,
+          activity_level: activityLevel as
+            | "sedentary"
+            | "light"
+            | "moderate"
+            | "very-active",
+          weight_lbs: weightLbs,
+          height_feet: heightFeetValue,
+          height_inches: heightInchesValue,
+        });
 
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            typeof data.detail === "string"
-              ? data.detail
-              : "Unable to calculate BMR.",
-          );
-        }
-
-        setBmr(data.bmr);
+        if (!controller.signal.aborted) setBmr(data.bmr);
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") {
           return;

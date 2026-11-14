@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { signup } from "@/lib/api";
+import { saveUser } from "@/lib/session";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -19,41 +21,13 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        let errorMessage = "Unable to create account.";
-        
-        if (typeof data.detail === "string") {
-          errorMessage = data.detail;
-        }else if (Array.isArray(data.detail)) {
-          errorMessage = data.detail.map((item: { msg?: string }) => item.msg || "Invalid input").join(", ");
-        } else if (data.detail?.msg) {
-          errorMessage = data.detail.msg;
-        }
-
-        setError(errorMessage);
-        return;
-      }
-
+      const user = await signup({ name, email, password });
+      saveUser(user);
       router.push("/onboarding/goals");
-    } catch {
-      setError("Unable to connect to the backend.");
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : "Unable to create account.",
+      );
     } finally {
       setLoading(false);
     }

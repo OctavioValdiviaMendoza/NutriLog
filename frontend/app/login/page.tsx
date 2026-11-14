@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { login } from "@/lib/api";
+import { saveUser } from "@/lib/session";
 
 export default function LoginPage() {
   const [message, setMessage] = useState("");
@@ -14,24 +16,12 @@ export default function LoginPage() {
     setIsSubmitting(true);
 
     const form = new FormData(event.currentTarget);
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-
     try {
-      const response = await fetch(`${apiUrl}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.get("email"),
-          password: form.get("password"),
-        }),
+      const user = await login({
+        email: String(form.get("email") ?? ""),
+        password: String(form.get("password") ?? ""),
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail ?? "Unable to log in.");
-      }
-
-      sessionStorage.setItem("nutrilog_user", JSON.stringify(data));
+      saveUser(user);
       router.push("/dashboard");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Unable to log in.");

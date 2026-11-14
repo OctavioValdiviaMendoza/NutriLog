@@ -1,0 +1,82 @@
+import type { ApiError, User } from "./types";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+function getErrorMessage(data: unknown): string {
+  if (!data || typeof data !== "object") return "Something went wrong.";
+
+  const detail = (data as { detail?: unknown }).detail;
+  if (typeof detail === "string") return detail;
+
+  if (Array.isArray(detail)) {
+    return detail
+      .map((item) => {
+        if (item && typeof item === "object" && "msg" in item) {
+          return String((item as { msg: unknown }).msg);
+        }
+        return "Invalid input";
+      })
+      .join(", ");
+  }
+
+  return "Something went wrong.";
+}
+
+export async function apiRequest<T>(
+  path: string,
+  options: RequestInit = {},
+): Promise<T> {
+  const response = await fetch(`${API_URL}${path}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+
+  const data: unknown = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    const error = new Error(getErrorMessage(data)) as Error & ApiError;
+    error.status = response.status;
+    error.details = data;
+    throw error;
+  }
+
+  return data as T;
+}
+
+export function signup(payload: {
+  name: string;
+  email: string;
+  password: string;
+}) {
+  return apiRequest<User>("/auth/signup", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function login(payload: { email: string; password: string }) {
+  return apiRequest<User>("/auth/login", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function calculateBmr(payload: {
+  gender: "male" | "female";
+  age: number;
+  activity_level: "sedentary" | "light" | "moderate" | "very-active";
+  weight_lbs: number;
+  height_feet: number;
+  height_inches: number;
+}) {
+  return apiRequest<{ bmr: number; calories_per_day: number }>(
+    "/calculations/bmr",
+    {
+      method: "POST",
+      body: JSON.stringify(payload),
+    },
+  );
+}

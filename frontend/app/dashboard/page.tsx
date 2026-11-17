@@ -1,10 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { getUser } from "@/lib/session";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { clearUser, getUser } from "@/lib/session";
 
 export default function Home() {
+  const router = useRouter();
   const [userName] = useState(() => getUser()?.name ?? "there");
+
+  useEffect(() => {
+    if (!getUser()) router.replace("/login");
+  }, [router]);
+
+  function handleLogout() {
+    clearUser();
+    router.replace("/");
+  }
 
   return (
     <main className="min-h-screen bg-green-50 px-6 py-10 text-gray-900">
@@ -17,9 +28,18 @@ export default function Home() {
             <h1 className="text-4xl font-bold text-green-950">NutriLog</h1>
           </div>
 
-          <button className="rounded-full bg-green-700 px-5 py-2 font-medium text-white hover:bg-green-800">
-            Log a meal
-          </button>
+          <div className="flex items-center gap-3">
+            <button className="rounded-full bg-green-700 px-5 py-2 font-medium text-white hover:bg-green-800">
+              Log a meal
+            </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-full border border-green-700 px-5 py-2 font-medium text-green-800 hover:bg-green-100"
+            >
+              Log out
+            </button>
+          </div>
         </header>
 
         <section className="mb-8 rounded-3xl bg-white p-8 shadow-sm">

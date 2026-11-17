@@ -2,7 +2,9 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { calculateBmr as requestBmr } from "@/lib/api";
+import { calculateBmr as requestBmr, saveProfile } from "@/lib/api";
+import { getUser } from "@/lib/session";
+import type { ProfileGoals } from "@/lib/types";
 
 export default function GoalsPage() {
   const router = useRouter();
@@ -18,6 +20,11 @@ export default function GoalsPage() {
   const [bmr, setBmr] = useState<number | null>(null);
   const [bmrLoading, setBmrLoading] = useState(false);
   const [bmrError, setBmrError] = useState("");
+  const [submitError, setSubmitError] = useState("");
+
+  useEffect(() => {
+    if (!getUser()) router.replace("/login");
+  }, [router]);
 
   const weightLbs = Number(weight);
   const heightFeetValue = Number(heightFeet);
@@ -58,7 +65,7 @@ export default function GoalsPage() {
           weight_lbs: weightLbs,
           height_feet: heightFeetValue,
           height_inches: heightInchesValue,
-        });
+        }, { signal: controller.signal });
 
         if (!controller.signal.aborted) setBmr(data.bmr);
       } catch (error) {
@@ -93,12 +100,43 @@ export default function GoalsPage() {
     weightLbs,
   ]);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSubmitError("");
     setIsSubmitting(true);
 
-    // Temporary navigation until the backend is connected
-    router.push("/dashboard");
+    const form = new FormData(event.currentTarget);
+    const profile: ProfileGoals = {
+      age: Number(form.get("age")),
+      gender: String(form.get("gender")) as ProfileGoals["gender"],
+      activity_level: String(
+        form.get("activity"),
+      ) as ProfileGoals["activity_level"],
+      weight_lbs: Number(form.get("weight")),
+      height_feet: Number(form.get("height-feet")),
+      height_inches: Number(form.get("height-inches")),
+      goal: String(form.get("goal")) as ProfileGoals["goal"],
+      goal_pace: form.get("goal-pace")
+        ? (String(form.get("goal-pace")) as ProfileGoals["goal_pace"])
+        : undefined,
+      calorie_target: Number(form.get("calories")),
+      protein_target: Number(form.get("protein")),
+      carb_target: Number(form.get("carbs")),
+      fat_target: Number(form.get("fat")),
+    };
+
+    try {
+      await saveProfile(profile);
+      router.replace("/dashboard");
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Unable to save your nutrition goals.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -449,6 +487,12 @@ export default function GoalsPage() {
           >
             {isSubmitting ? "Saving your preferences..." : "Continue to dashboard"}
           </button>
+
+          {submitError && (
+            <p role="alert" className="text-center text-sm text-red-600">
+              {submitError}
+            </p>
+          )}
         </form>
       </div>
     </main>

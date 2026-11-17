@@ -1,4 +1,4 @@
-import type { ApiError, User } from "./types";
+import type { ApiError, ProfileGoals, User } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -64,19 +64,30 @@ export function login(payload: { email: string; password: string }) {
   });
 }
 
-export function calculateBmr(payload: {
-  gender: "male" | "female";
-  age: number;
-  activity_level: "sedentary" | "light" | "moderate" | "very-active";
-  weight_lbs: number;
-  height_feet: number;
-  height_inches: number;
-}) {
+export function calculateBmr(
+  payload: {
+    gender: "male" | "female";
+    age: number;
+    activity_level: "sedentary" | "light" | "moderate" | "very-active";
+    weight_lbs: number;
+    height_feet: number;
+    height_inches: number;
+  },
+  options: RequestInit = {},
+) {
   return apiRequest<{ bmr: number; calories_per_day: number }>(
     "/calculations/bmr",
     {
+      ...options,
       method: "POST",
       body: JSON.stringify(payload),
     },
   );
+}
+
+export function saveProfile(payload: ProfileGoals) {
+  return apiRequest<ProfileGoals>("/profile", {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
 }

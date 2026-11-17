@@ -1,4 +1,4 @@
-import type { ApiError, FoodSearchResult, Meal, ProfileGoals, User } from "./types";
+import type { ApiError, FoodSearchResult, Meal, ProfileGoals, Recipe, User } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -112,4 +112,14 @@ export function createMeal(payload: Omit<Meal, "id" | "user_id" | "created_at">)
     method: "POST",
     body: JSON.stringify(payload),
   });
+}
+
+export function listRecipes() { return apiRequest<Recipe[]>("/recipes"); }
+
+export function createRecipe(payload: { name: string; instructions?: string; servings: number; ingredients: unknown[] }) {
+  return apiRequest<Recipe>("/recipes", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export function logRecipe(recipeId: number, payload: { meal_type: string; logged_date: string; servings: number }) {
+  return apiRequest<Meal>(`/recipes/${recipeId}/log`, { method: "POST", body: JSON.stringify(payload) });
 }

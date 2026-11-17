@@ -1,4 +1,4 @@
-import type { ApiError, ProfileGoals, User } from "./types";
+import type { ApiError, FoodSearchResult, Meal, ProfileGoals, User } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -97,6 +97,19 @@ export function calculateBmr(
 export function saveProfile(payload: ProfileGoals) {
   return apiRequest<ProfileGoals>("/profile", {
     method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function searchFoods(query: string, brandedOnly = false) {
+  return apiRequest<{ foods: FoodSearchResult[]; total_hits: number }>(
+    `/meals/foods/search?q=${encodeURIComponent(query)}&branded_only=${brandedOnly}`,
+  );
+}
+
+export function createMeal(payload: Omit<Meal, "id" | "user_id" | "created_at">) {
+  return apiRequest<Meal>("/meals", {
+    method: "POST",
     body: JSON.stringify(payload),
   });
 }

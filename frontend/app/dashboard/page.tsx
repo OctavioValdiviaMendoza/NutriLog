@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { getCurrentUser, logout } from "@/lib/api";
 
 export default function Home() {
@@ -34,9 +35,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="rounded-full bg-green-700 px-5 py-2 font-medium text-white hover:bg-green-800">
+            <Link href="/meals/new" className="rounded-full bg-green-700 px-5 py-2 font-medium text-white hover:bg-green-800">
               Log a meal
-            </button>
+            </Link>
             <button
               type="button"
               onClick={handleLogout}

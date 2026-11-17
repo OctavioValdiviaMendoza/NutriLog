@@ -38,6 +38,27 @@ export type Meal = {
   fat_g: number;
   logged_date: string;
   created_at: string;
+  quantity: number;
+  source_type: "fdc_branded" | "fdc_foundation" | "fdc_sr_legacy" | "user_entered";
+  fdc_id?: number;
+  brand_name?: string;
+  brand_owner?: string;
+  notes?: string;
+};
+
+export type FoodSearchResult = {
+  fdc_id: number;
+  description: string;
+  brand_name?: string;
+  brand_owner?: string;
+  data_type?: string;
+  serving_size?: number;
+  serving_size_unit?: string;
+  household_serving_full_text?: string;
+  calories?: number;
+  protein_g?: number;
+  carbs_g?: number;
+  fat_g?: number;
 };
 
 export type DailySummary = {

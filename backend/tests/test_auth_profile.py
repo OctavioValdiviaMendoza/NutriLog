@@ -6,6 +6,7 @@ from sqlalchemy import delete
 from app.main import app
 from app.db.session import SessionLocal
 from app.models.auth_session import AuthSession
+from app.models.meal import Meal
 from app.models.profile import UserProfile
 from app.models.user import User
 
@@ -58,6 +59,25 @@ def test_cookie_auth_and_profile_round_trip():
         assert loaded_profile.status_code == 200
         assert loaded_profile.json()["goal"] == "maintain-weight"
 
+        logged_meal = client.post(
+            "/meals",
+            json={
+                "meal_type": "lunch",
+                "logged_date": "2026-11-17",
+                "food_name": "Test sandwich",
+                "serving_size": "1 sandwich",
+                "quantity": 2,
+                "calories": 400,
+                "protein_g": 20,
+                "carbs_g": 40,
+                "fat_g": 15,
+                "source_type": "user_entered",
+            },
+        )
+        assert logged_meal.status_code == 201
+        assert logged_meal.json()["calories"] == 800
+        assert client.get("/meals?logged_date=2026-11-17").json()[0]["source_type"] == "user_entered"
+
         logout = client.post("/auth/logout")
         assert logout.status_code == 204
         assert client.get("/auth/me").status_code == 401
@@ -69,6 +89,7 @@ def test_cookie_auth_and_profile_round_trip():
             if user is not None:
                 db.execute(delete(AuthSession).where(AuthSession.user_id == user.id))
                 db.execute(delete(UserProfile).where(UserProfile.user_id == user.id))
+                db.execute(delete(Meal).where(Meal.user_id == user.id))
                 db.delete(user)
                 db.commit()
         finally:

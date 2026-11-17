@@ -38,4 +38,28 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS meals (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    meal_type VARCHAR(20) NOT NULL,
+    logged_date DATE NOT NULL,
+    food_name VARCHAR(255) NOT NULL,
+    serving_size VARCHAR(120) NOT NULL,
+    quantity DOUBLE PRECISION NOT NULL,
+    calories DOUBLE PRECISION NOT NULL,
+    protein_g DOUBLE PRECISION NOT NULL,
+    carbs_g DOUBLE PRECISION NOT NULL,
+    fat_g DOUBLE PRECISION NOT NULL,
+    source_type VARCHAR(30) NOT NULL,
+    fdc_id INTEGER,
+    brand_name VARCHAR(255),
+    brand_owner VARCHAR(255),
+    notes TEXT,
+    nutrition_snapshot JSON NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS ix_meals_user_id ON meals(user_id);
+CREATE INDEX IF NOT EXISTS ix_meals_logged_date ON meals(logged_date);
+
 CREATE INDEX IF NOT EXISTS ix_user_profiles_user_id ON user_profiles (user_id);

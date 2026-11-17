@@ -10,6 +10,10 @@ class FdcUnavailableError(RuntimeError):
     pass
 
 
+class FdcConfigurationError(RuntimeError):
+    pass
+
+
 def _nutrient(food: dict[str, Any], names: set[str]) -> float | None:
     for item in food.get("foodNutrients", []):
         nutrient = item.get("nutrient", item)
@@ -47,6 +51,8 @@ def _request(path: str, params: dict[str, Any]) -> dict[str, Any]:
             params={**params, "api_key": settings.fdc_api_key},
             timeout=10,
         )
+        if response.status_code == 403:
+            raise FdcConfigurationError("USDA FoodData Central rejected the configured API key.")
         response.raise_for_status()
     except httpx.HTTPError as exc:
         raise FdcUnavailableError("USDA FoodData Central is temporarily unavailable.") from exc

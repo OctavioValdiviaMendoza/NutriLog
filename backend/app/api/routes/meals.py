@@ -9,7 +9,7 @@ from app.db.session import get_db
 from app.models.meal import Meal
 from app.models.user import User
 from app.schemas.meal import FoodSearchResponse, MealCreate, MealResponse
-from app.services.fdc import FdcUnavailableError, get_food, search_foods
+from app.services.fdc import FdcConfigurationError, FdcUnavailableError, get_food, search_foods
 
 router = APIRouter(prefix="/meals", tags=["meals"])
 
@@ -22,6 +22,8 @@ def search_food_database(
 ):
     try:
         foods, total_hits = search_foods(q, branded_only)
+    except FdcConfigurationError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     except FdcUnavailableError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     return FoodSearchResponse(foods=foods, total_hits=total_hits)
@@ -31,6 +33,8 @@ def search_food_database(
 def get_food_details(fdc_id: int, _: User = Depends(get_current_user)):
     try:
         return get_food(fdc_id)
+    except FdcConfigurationError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     except FdcUnavailableError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 

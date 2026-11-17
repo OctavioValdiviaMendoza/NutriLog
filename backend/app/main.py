@@ -6,10 +6,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes.auth import router as auth_router
 from app.api.routes.calculations import router as calculations_router
 from app.api.routes.health import router as health_router
+from app.api.routes.profile import router as profile_router
 from app.core.config import settings
 from app.db.base import Base
 from app.db.session import engine
-from app.models import User  # noqa: F401 - registers models with Base.metadata
+from app.models import AuthSession, User, UserProfile  # noqa: F401 - registers models with Base.metadata
 
 
 @asynccontextmanager
@@ -37,3 +38,4 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(auth_router)
 app.include_router(calculations_router)
+app.include_router(profile_router)

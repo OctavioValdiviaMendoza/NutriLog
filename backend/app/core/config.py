@@ -4,6 +4,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     database_url: str
     auto_create_tables: bool = True
+    session_cookie_name: str = "nutrilog_session"
+    session_max_age_seconds: int = 60 * 60 * 24 * 7
+    cookie_secure: bool = False
+    cookie_samesite: str = "lax"
 
     model_config = SettingsConfigDict(
         env_file=".env",

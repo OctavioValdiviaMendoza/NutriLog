@@ -2,8 +2,11 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { calculateBmr as requestBmr, saveProfile } from "@/lib/api";
-import { getUser } from "@/lib/session";
+import {
+  calculateBmr as requestBmr,
+  getCurrentUser,
+  saveProfile,
+} from "@/lib/api";
 import type { ProfileGoals } from "@/lib/types";
 
 export default function GoalsPage() {
@@ -23,7 +26,7 @@ export default function GoalsPage() {
   const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
-    if (!getUser()) router.replace("/login");
+    getCurrentUser().catch(() => router.replace("/login"));
   }, [router]);
 
   const weightLbs = Number(weight);

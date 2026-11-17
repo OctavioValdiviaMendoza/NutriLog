@@ -3,7 +3,6 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api";
-import { saveUser } from "@/lib/session";
 
 export default function LoginPage() {
   const [message, setMessage] = useState("");
@@ -17,11 +16,10 @@ export default function LoginPage() {
 
     const form = new FormData(event.currentTarget);
     try {
-      const user = await login({
+      await login({
         email: String(form.get("email") ?? ""),
         password: String(form.get("password") ?? ""),
       });
-      saveUser(user);
       router.push("/dashboard");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Unable to log in.");

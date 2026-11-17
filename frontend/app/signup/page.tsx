@@ -3,7 +3,6 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signup } from "@/lib/api";
-import { saveUser } from "@/lib/session";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -21,8 +20,7 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const user = await signup({ name, email, password });
-      saveUser(user);
+      await signup({ name, email, password });
       router.push("/onboarding/goals");
     } catch (error) {
       setError(

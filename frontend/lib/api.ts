@@ -28,6 +28,7 @@ export async function apiRequest<T>(
 ): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     ...options,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...options.headers,
@@ -62,6 +63,14 @@ export function login(payload: { email: string; password: string }) {
     method: "POST",
     body: JSON.stringify(payload),
   });
+}
+
+export function getCurrentUser() {
+  return apiRequest<User>("/auth/me");
+}
+
+export function logout() {
+  return apiRequest<void>("/auth/logout", { method: "POST" });
 }
 
 export function calculateBmr(

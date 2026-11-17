@@ -2,19 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { clearUser, getUser } from "@/lib/session";
+import { getCurrentUser, logout } from "@/lib/api";
 
 export default function Home() {
   const router = useRouter();
-  const [userName] = useState(() => getUser()?.name ?? "there");
+  const [userName, setUserName] = useState("there");
 
   useEffect(() => {
-    if (!getUser()) router.replace("/login");
+    getCurrentUser()
+      .then((user) => setUserName(user.name))
+      .catch(() => router.replace("/login"));
   }, [router]);
 
-  function handleLogout() {
-    clearUser();
-    router.replace("/");
+  async function handleLogout() {
+    try {
+      await logout();
+    } finally {
+      router.replace("/");
+    }
   }
 
   return (

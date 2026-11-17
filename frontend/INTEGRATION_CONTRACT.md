@@ -3,17 +3,18 @@
 ## Route flow
 
 - `/` is public and links to signup or login.
-- `/signup` creates an account, stores the returned user in the MVP `sessionStorage` session, and routes to `/onboarding/goals`.
-- `/login` authenticates the user, stores the returned user in `sessionStorage`, and routes to `/dashboard`.
-- `/onboarding/goals` will require a stored user and will save profile/goals data before routing to `/dashboard`.
-- `/dashboard` will require a stored user and will load profile/goals, meals, and the daily summary from the API.
+- `/signup` creates an account, receives an HttpOnly session cookie, and routes to `/onboarding/goals`.
+- `/login` authenticates the user, receives an HttpOnly session cookie, and routes to `/dashboard`.
+- `/onboarding/goals` checks `/auth/me`, saves profile/goals with `PUT /profile`, and routes to `/dashboard`.
+- `/dashboard` checks `/auth/me`, loads profile/goals, meals, and the daily summary, and can call `POST /auth/logout`.
 
-The current session is intentionally temporary for the prototype. It must not store or return a password. A secure cookie or token flow will replace it later.
+The session cookie is managed by the backend. The browser never stores or receives the user's password or a JavaScript-readable session token.
 
 ## API conventions
 
 - The API base URL is read once in `frontend/lib/api.ts` from `NEXT_PUBLIC_API_URL`, defaulting to `http://localhost:8000` for local development.
 - Requests use JSON and `Content-Type: application/json`.
+- Requests use `credentials: "include"` so the browser sends the HttpOnly session cookie to the API.
 - API failures are converted to `Error` objects with `status` and `details` properties.
 - The frontend uses snake_case field names for API payloads so it matches the current FastAPI schemas.
 
@@ -39,7 +40,7 @@ POST /auth/signup
 }
 ```
 
-### Profile/goals contract for the next backend change
+### Profile/goals contract
 
 ```json
 {

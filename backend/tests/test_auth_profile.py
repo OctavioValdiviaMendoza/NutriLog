@@ -7,6 +7,7 @@ from app.main import app
 from app.db.session import SessionLocal
 from app.models.auth_session import AuthSession
 from app.models.meal import Meal
+from app.models.recipe import Recipe, RecipeIngredient
 from app.models.profile import UserProfile
 from app.models.user import User
 
@@ -78,6 +79,37 @@ def test_cookie_auth_and_profile_round_trip():
         assert logged_meal.json()["calories"] == 800
         assert client.get("/meals?logged_date=2026-11-17").json()[0]["source_type"] == "user_entered"
 
+        created_recipe = client.post(
+            "/recipes",
+            json={
+                "name": "Test tomato bowl",
+                "servings": 2,
+                "ingredients": [
+                    {
+                        "food_name": "Tomatoes, raw",
+                        "quantity": 200,
+                        "unit": "g",
+                        "source_type": "fdc_foundation",
+                        "fdc_id": 1,
+                        "serving_size_grams": 100,
+                        "calories_per_serving": 18,
+                        "protein_g_per_serving": 0.9,
+                        "carbs_g_per_serving": 3.9,
+                        "fat_g_per_serving": 0.2,
+                    }
+                ],
+            },
+        )
+        assert created_recipe.status_code == 201
+        recipe = created_recipe.json()
+        assert recipe["calories_per_serving"] == 18
+        logged_recipe = client.post(
+            f"/recipes/{recipe['id']}/log",
+            json={"meal_type": "dinner", "logged_date": "2026-11-17", "servings": 1},
+        )
+        assert logged_recipe.status_code == 201
+        assert logged_recipe.json()["source_type"] == "recipe"
+
         logout = client.post("/auth/logout")
         assert logout.status_code == 204
         assert client.get("/auth/me").status_code == 401
@@ -90,6 +122,9 @@ def test_cookie_auth_and_profile_round_trip():
                 db.execute(delete(AuthSession).where(AuthSession.user_id == user.id))
                 db.execute(delete(UserProfile).where(UserProfile.user_id == user.id))
                 db.execute(delete(Meal).where(Meal.user_id == user.id))
+                recipe_ids = db.query(Recipe.id).filter(Recipe.user_id == user.id).all()
+                db.query(RecipeIngredient).filter(RecipeIngredient.recipe_id.in_([recipe_id for (recipe_id,) in recipe_ids])).delete(synchronize_session=False)
+                db.execute(delete(Recipe).where(Recipe.user_id == user.id))
                 db.delete(user)
                 db.commit()
         finally:

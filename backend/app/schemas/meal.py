@@ -5,7 +5,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 MealType = Literal["breakfast", "lunch", "dinner", "snack", "other"]
-SourceType = Literal["fdc_branded", "fdc_foundation", "fdc_sr_legacy", "user_entered"]
+SourceType = Literal["fdc_branded", "fdc_foundation", "fdc_sr_legacy", "user_entered", "recipe"]
 
 
 class FoodSearchResult(BaseModel):
@@ -13,6 +13,7 @@ class FoodSearchResult(BaseModel):
     description: str
     brand_name: str | None = None
     brand_owner: str | None = None
+    recipe_id: int | None = None
     data_type: str | None = None
     serving_size: float | None = None
     serving_size_unit: str | None = None
@@ -21,6 +22,8 @@ class FoodSearchResult(BaseModel):
     protein_g: float | None = None
     carbs_g: float | None = None
     fat_g: float | None = None
+    nutrition_basis: Literal["serving", "100g"] = "serving"
+    nutrition_basis_grams: float | None = None
 
 
 class FoodSearchResponse(BaseModel):

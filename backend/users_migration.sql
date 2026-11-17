@@ -62,4 +62,34 @@ CREATE TABLE IF NOT EXISTS meals (
 CREATE INDEX IF NOT EXISTS ix_meals_user_id ON meals(user_id);
 CREATE INDEX IF NOT EXISTS ix_meals_logged_date ON meals(logged_date);
 
+CREATE TABLE IF NOT EXISTS recipes (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    name VARCHAR(255) NOT NULL,
+    instructions TEXT,
+    servings DOUBLE PRECISION NOT NULL,
+    calories_per_serving DOUBLE PRECISION NOT NULL,
+    protein_g_per_serving DOUBLE PRECISION NOT NULL,
+    carbs_g_per_serving DOUBLE PRECISION NOT NULL,
+    fat_g_per_serving DOUBLE PRECISION NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
+    id SERIAL PRIMARY KEY,
+    recipe_id INTEGER NOT NULL REFERENCES recipes(id) ON DELETE CASCADE,
+    food_name VARCHAR(255) NOT NULL,
+    quantity DOUBLE PRECISION NOT NULL,
+    unit VARCHAR(20) NOT NULL,
+    grams DOUBLE PRECISION NOT NULL,
+    source_type VARCHAR(30) NOT NULL,
+    fdc_id INTEGER,
+    nutrition_snapshot JSON NOT NULL
+);
+
+ALTER TABLE meals ADD COLUMN IF NOT EXISTS recipe_id INTEGER REFERENCES recipes(id);
+CREATE INDEX IF NOT EXISTS ix_recipes_user_id ON recipes(user_id);
+CREATE INDEX IF NOT EXISTS ix_recipe_ingredients_recipe_id ON recipe_ingredients(recipe_id);
+
 CREATE INDEX IF NOT EXISTS ix_user_profiles_user_id ON user_profiles (user_id);

@@ -22,6 +22,7 @@ class Meal(Base):
     fat_g: Mapped[float] = mapped_column(Float, nullable=False)
     source_type: Mapped[str] = mapped_column(String(30), nullable=False)
     fdc_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    recipe_id: Mapped[int | None] = mapped_column(ForeignKey("recipes.id"), nullable=True)
     brand_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     brand_owner: Mapped[str | None] = mapped_column(String(255), nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)

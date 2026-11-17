@@ -17,9 +17,9 @@ class FdcConfigurationError(RuntimeError):
 def _nutrient(food: dict[str, Any], names: set[str]) -> float | None:
     for item in food.get("foodNutrients", []):
         nutrient = item.get("nutrient", item)
-        name = str(nutrient.get("name", "")).lower()
-        if name in names:
-            value = item.get("amount")
+        name = str(nutrient.get("name") or item.get("nutrientName", "")).lower()
+        if name in names or ("energy" in names and name.startswith("energy (atwater")):
+            value = item.get("amount", item.get("value"))
             return float(value) if value is not None else None
     return None
 

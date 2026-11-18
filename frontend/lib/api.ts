@@ -1,4 +1,4 @@
-import type { ApiError, FoodSearchResult, Meal, ProfileGoals, Recipe, User } from "./types";
+import type { ApiError, DailySummary, FoodSearchResult, Meal, ProfileGoals, Recipe, User } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -122,4 +122,8 @@ export function createRecipe(payload: { name: string; instructions?: string; ser
 
 export function logRecipe(recipeId: number, payload: { meal_type: string; logged_date: string; servings: number }) {
   return apiRequest<Meal>(`/recipes/${recipeId}/log`, { method: "POST", body: JSON.stringify(payload) });
+}
+
+export function getDailySummary(date?: string) {
+  return apiRequest<DailySummary>(date ? `/summary?date=${encodeURIComponent(date)}` : "/summary");
 }

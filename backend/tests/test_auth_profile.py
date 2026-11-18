@@ -110,6 +110,11 @@ def test_cookie_auth_and_profile_round_trip():
         assert logged_recipe.status_code == 201
         assert logged_recipe.json()["source_type"] == "recipe"
 
+        summary = client.get("/summary?date=2026-11-17")
+        assert summary.status_code == 200
+        assert summary.json()["consumed"]["calories"] == 818
+        assert summary.json()["targets"]["calories"] == 2400
+
         logout = client.post("/auth/logout")
         assert logout.status_code == 204
         assert client.get("/auth/me").status_code == 401

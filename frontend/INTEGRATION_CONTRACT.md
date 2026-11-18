@@ -6,7 +6,7 @@
 - `/signup` creates an account, receives an HttpOnly session cookie, and routes to `/onboarding/goals`.
 - `/login` authenticates the user, receives an HttpOnly session cookie, and routes to `/dashboard`.
 - `/onboarding/goals` checks `/auth/me`, saves profile/goals with `PUT /profile`, and routes to `/dashboard`.
-- `/dashboard` checks `/auth/me`, loads profile/goals, meals, and the daily summary, and can call `POST /auth/logout`.
+- `/dashboard` checks `/auth/me`, loads profile/goals, meals, and `GET /summary?date=YYYY-MM-DD`, and can call `POST /auth/logout`.
 
 The session cookie is managed by the backend. The browser never stores or receives the user's password or a JavaScript-readable session token.
 

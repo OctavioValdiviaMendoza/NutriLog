@@ -1,6 +1,11 @@
 from fastapi import APIRouter
 
-from app.schemas.bmr import BMRRequest, BMRResponse
+from app.schemas.bmr import (
+    BMRRequest,
+    BMRResponse,
+    TDEERequest,
+    TDEEResponse,
+)
 
 router = APIRouter(prefix="/calculations", tags=["calculations"])
 
@@ -20,3 +25,26 @@ def calculate_bmr(payload: BMRRequest) -> BMRResponse:
         calories_per_day=rounded_bmr,
     )
 
+
+ACTIVITY_MULTIPLIERS = {
+    "sedentary": 1.2,
+    "light": 1.375,
+    "moderate": 1.55,
+    "very-active": 1.725,
+}
+
+
+@router.post("/tdee", response_model=TDEEResponse)
+def calculate_tdee(payload: TDEERequest) -> TDEEResponse:
+    """Estimate daily energy expenditure from BMR and activity."""
+
+    bmr_result = calculate_bmr(payload)
+
+    multiplier = ACTIVITY_MULTIPLIERS[payload.activity_level]
+    tdee = round(bmr_result.bmr * multiplier)
+
+    return TDEEResponse(
+        bmr=bmr_result.bmr,
+        activity_multiplier=multiplier,
+        tdee=tdee,
+    )

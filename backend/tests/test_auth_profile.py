@@ -134,3 +134,8 @@ def test_cookie_auth_and_profile_round_trip():
                 db.commit()
         finally:
             db.close()
+def test_public_user_listing_is_not_available():
+    with TestClient(app) as client:
+        response = client.get("/top3users")
+
+    assert response.status_code == 404

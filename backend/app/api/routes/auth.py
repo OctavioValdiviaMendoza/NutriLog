@@ -97,10 +97,3 @@ def logout(request: Request, response: Response, db: Session = Depends(get_db)):
 
     response.delete_cookie(key=settings.session_cookie_name, path="/")
     return None
-
-
-@router.get("/top3users", response_model=list[UserResponse], tags=["testing"])
-def top_three_users(db: Session = Depends(get_db)):
-    return list(
-        db.scalars(select(User).order_by(User.created_at.desc(), User.id.desc()).limit(3))
-    )

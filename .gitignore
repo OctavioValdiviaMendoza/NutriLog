@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+**/.venv-python39-backup/
 
 # Environment variables
 .env

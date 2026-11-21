@@ -8,7 +8,12 @@ from app.core.auth import get_current_user
 from app.db.session import get_db
 from app.models.meal import Meal
 from app.models.user import User
-from app.schemas.meal import FoodSearchResponse, MealCreate, MealResponse
+from app.schemas.meal import (
+    FoodSearchResponse,
+    MealCreate,
+    MealResponse,
+    MealUpdate,
+)
 from app.services.fdc import FdcConfigurationError, FdcUnavailableError, get_food, search_foods
 
 router = APIRouter(prefix="/meals", tags=["meals"])
@@ -84,3 +89,93 @@ def list_meals(
     if logged_date:
         query = query.where(Meal.logged_date == logged_date)
     return list(db.scalars(query).all())
+
+@router.patch("/{meal_id}", response_model=MealResponse)
+def update_meal(
+    meal_id: int,
+    payload: MealUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    meal = db.scalar(
+        select(Meal).where(
+            Meal.id == meal_id,
+            Meal.user_id == current_user.id,
+        )
+    )
+
+    if meal is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Meal not found",
+        )
+
+    changes = payload.model_dump(exclude_unset=True)
+
+    # Preserve original per-serving nutrition values.
+    snapshot = dict(meal.nutrition_snapshot or {})
+    per_serving = dict(snapshot.get("per_serving") or {})
+
+    nutrients = ("calories", "protein_g", "carbs_g", "fat_g")
+
+    for nutrient in nutrients:
+        if nutrient in changes:
+            per_serving[nutrient] = changes.pop(nutrient)
+
+    quantity = changes.pop("quantity", meal.quantity)
+
+    for field, value in changes.items():
+        setattr(meal, field, value)
+
+    for nutrient in nutrients:
+        if nutrient not in per_serving:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Missing per-serving value: {nutrient}",
+            )
+
+        setattr(
+            meal,
+            nutrient,
+            per_serving[nutrient] * quantity,
+        )
+
+    meal.quantity = quantity
+
+    snapshot.update({
+        "per_serving": per_serving,
+        "quantity": quantity,
+    })
+    meal.nutrition_snapshot = snapshot
+
+    db.commit()
+    db.refresh(meal)
+
+    return meal
+
+@router.delete(
+    "/{meal_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_meal(
+    meal_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    meal = db.scalar(
+        select(Meal).where(
+            Meal.id == meal_id,
+            Meal.user_id == current_user.id,
+        )
+    )
+
+    if meal is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Meal not found",
+        )
+
+    db.delete(meal)
+    db.commit()
+
+    return None

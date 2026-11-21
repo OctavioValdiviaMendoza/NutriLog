@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 MealType = Literal["breakfast", "lunch", "dinner", "snack", "other"]
@@ -54,3 +54,58 @@ class MealResponse(MealCreate):
     id: int
     user_id: int
     created_at: datetime
+
+class MealUpdate(BaseModel):
+    meal_type: MealType | None = None
+    logged_date: date | None = None
+
+    food_name: str | None = Field(
+        default=None, min_length=1, max_length=255
+    )
+    serving_size: str | None = Field(
+        default=None, min_length=1, max_length=120
+    )
+
+    quantity: float | None = Field(
+        default=None, gt=0, le=1_000
+    )
+
+    calories: float | None = Field(
+        default=None, ge=0, le=100_000
+    )
+    protein_g: float | None = Field(
+        default=None, ge=0, le=100_000
+    )
+    carbs_g: float | None = Field(
+        default=None, ge=0, le=100_000
+    )
+    fat_g: float | None = Field(
+        default=None, ge=0, le=100_000
+    )
+
+    notes: str | None = Field(
+        default=None, max_length=1_000
+    )
+
+    @model_validator(mode="after")
+    def reject_null_required_fields(self):
+        required_fields = {
+            "meal_type",
+            "logged_date",
+            "food_name",
+            "serving_size",
+            "quantity",
+            "calories",
+            "protein_g",
+            "carbs_g",
+            "fat_g",
+        }
+
+        for field in required_fields:
+            if field in self.model_fields_set:
+                if getattr(self, field) is None:
+                    raise ValueError(
+                        f"{field} cannot be null"
+                    )
+
+        return self

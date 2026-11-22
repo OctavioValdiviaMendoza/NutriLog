@@ -100,7 +100,7 @@ export default function DashboardPage() {
   const mealGroups = useMemo(() => summary?.meals.reduce<Record<string, Meal[]>>((groups, meal) => { (groups[meal.meal_type] ??= []).push(meal); return groups; }, {}) ?? {}, [summary]);
 
   useEffect(() => { getCurrentUser().then((user) => setUserName(user.name)).catch(() => router.replace("/login")); }, [router]);
-  useEffect(() => { getDailySummary(selectedDate || undefined).then(setSummary).catch((reason) => setError(reason instanceof Error ? reason.message : "Could not load the dashboard.")).finally(() => setLoading(false)); }, [selectedDate]);
+  useEffect(() => { getDailySummary(selectedDate || formatDate(new Date())).then(setSummary).catch((reason) => setError(reason instanceof Error ? reason.message : "Could not load the dashboard.")).finally(() => setLoading(false)); }, [selectedDate]);
 
   function selectDate(value: string) { setLoading(true); setError(""); setSelectedDate(value); }
   function shiftDate(days: number) { const next = selectedDate ? new Date(`${selectedDate}T12:00:00`) : new Date(); next.setDate(next.getDate() + days); selectDate(formatDate(next)); }
@@ -120,7 +120,7 @@ export default function DashboardPage() {
       await deleteMeal(meal.id);
 
       const updatedSummary = await getDailySummary(
-        selectedDate || undefined
+        selectedDate || formatDate(new Date())
       );
 
       setSummary(updatedSummary);
@@ -194,7 +194,7 @@ export default function DashboardPage() {
       setEditingMeal(null);
 
       const updatedSummary = await getDailySummary(
-        selectedDate || undefined
+        selectedDate || formatDate(new Date())
       );
 
       setSummary(updatedSummary);

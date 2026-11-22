@@ -61,17 +61,17 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="font-semibold">Photo-assisted logging</h4>
+              <h4 className="font-semibold">Photo-assisted logging (planned)</h4>
               <p className="text-gray-600">
-                Upload a meal photo and review the predicted foods.
+                Photo-assisted recognition is planned for a future release.
               </p>
             </div>
 
             <div>
-              <h4 className="font-semibold">Personalized insights</h4>
+              <h4 className="font-semibold">Personalized insights (planned)</h4>
               <p className="text-gray-600">
-                See your progress and receive meal recommendations based on
-                your remaining goals.
+                See your progress today; recommendations are planned for a
+                future release.
               </p>
             </div>
           </div>

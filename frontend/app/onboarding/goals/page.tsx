@@ -108,6 +108,7 @@ export default function GoalsPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     setSubmitError("");
     setIsSubmitting(true);
 

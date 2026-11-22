@@ -16,6 +16,13 @@ export default function SignupPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    if (loading) return;
+
+    if (name.trim().length < 1 || password.length < 8) {
+      setError("Enter your name and a password with at least 8 characters.");
+      return;
+    }
+
     setError("");
     setLoading(true);
 
@@ -60,6 +67,7 @@ export default function SignupPage() {
           onChange={(event) => setName(event.target.value)}
           className="mb-5 w-full rounded-xl border px-4 py-3 text-black"
           required
+          autoComplete="name"
         />
 
         <label
@@ -77,6 +85,7 @@ export default function SignupPage() {
           onChange={(event) => setEmail(event.target.value)}
           className="mb-5 w-full rounded-xl border px-4 py-3 text-black"
           required
+          autoComplete="email"
         />
 
         <label
@@ -94,6 +103,8 @@ export default function SignupPage() {
           onChange={(event) => setPassword(event.target.value)}
           className="mb-6 w-full rounded-xl border px-4 py-3 text-black"
           required
+          minLength={8}
+          autoComplete="new-password"
         />
 
         <button
@@ -105,7 +116,7 @@ export default function SignupPage() {
         </button>
 
         {error && (
-          <p className="mt-4 text-center text-sm text-red-600">{error}</p>
+          <p role="alert" className="mt-4 text-center text-sm text-red-600">{error}</p>
         )}
       </form>
     </main>

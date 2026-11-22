@@ -26,18 +26,27 @@ export async function apiRequest<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
-  const response = await fetch(`${API_URL}${path}`, {
-    ...options,
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        ...options.headers,
+      },
+    });
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") throw error;
+    throw new Error("Unable to reach the NutriLog API. Check that the backend is running.");
+  }
 
   const data: unknown = await response.json().catch(() => null);
 
   if (!response.ok) {
+    if ((response.status === 401 || response.status === 403) && !path.startsWith("/auth/")) {
+      window.open("/login?reason=session-expired", "_self");
+    }
     const error = new Error(getErrorMessage(data)) as Error & ApiError;
     error.status = response.status;
     error.details = data;

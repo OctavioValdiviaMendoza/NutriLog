@@ -11,6 +11,7 @@ export default function LoginPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     setMessage("");
     setIsSubmitting(true);
 
@@ -49,6 +50,7 @@ export default function LoginPage() {
           placeholder="you@example.com"
           className="mb-5 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
+          autoComplete="email"
         />
 
         <label className="mb-2 block font-medium text-black">Password</label>
@@ -58,6 +60,7 @@ export default function LoginPage() {
           placeholder="Your password"
           className="mb-6 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
+          autoComplete="current-password"
         />
 
         <button
@@ -69,7 +72,7 @@ export default function LoginPage() {
         </button>
 
         {message && (
-          <p className="mt-4 text-center text-sm text-green-700">{message}</p>
+          <p role="alert" className="mt-4 text-center text-sm text-red-700">{message}</p>
         )}
       </form>
     </main>

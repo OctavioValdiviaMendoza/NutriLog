@@ -67,7 +67,33 @@ export default function NewMealPage() {
     if (savingRecipe) return;
     if (!recipe.name || !ingredients.length) { setMessage("Add a recipe name and at least one ingredient."); return; }
     setSavingRecipe(true);
-    try { await createRecipe({ name: recipe.name, instructions: recipe.instructions, servings: Number(recipe.servings), ingredients }); setRecipeBuilder(false); setIngredients([]); setRecipe({ name: "", instructions: "", servings: "1" }); setMessage("Recipe saved. Select Recipes to log it."); setMode("recipes"); }
+    try {
+      const savedRecipe = await createRecipe({
+        name: recipe.name,
+        instructions: recipe.instructions,
+        servings: Number(recipe.servings),
+        ingredients,
+      });
+
+      setRecipes((currentRecipes) => {
+        const withoutDuplicate = currentRecipes.filter(
+          (item) => item.id !== savedRecipe.id
+        );
+
+        return [...withoutDuplicate, savedRecipe];
+      });
+
+      setRecipeBuilder(false);
+      setIngredients([]);
+      setRecipe({
+        name: "",
+        instructions: "",
+        servings: "1",
+      });
+
+      setMessage("Recipe saved successfully. You can now log it.");
+      setMode("recipes");
+    }
     catch (error) { setMessage(error instanceof Error ? error.message : "Could not save recipe."); }
     finally { setSavingRecipe(false); }
   }

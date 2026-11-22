@@ -31,6 +31,8 @@ export type Meal = {
   id: number;
   meal_type: MealType;
   food_name: string;
+  display_name?: string;
+  original_usda_description?: string | null;
   serving_size: string;
   calories: number;
   protein_g: number;
@@ -67,6 +69,7 @@ export type MealUpdate = Partial<
 export type FoodSearchResult = {
   fdc_id: number;
   description: string;
+  display_name?: string;
   brand_name?: string;
   brand_owner?: string;
   data_type?: string;
@@ -79,6 +82,7 @@ export type FoodSearchResult = {
   fat_g?: number;
   nutrition_basis?: "serving" | "100g";
   nutrition_basis_grams?: number;
+  portions?: { id: number; label: string; grams: number }[];
 };
 
 export type RecipeIngredient = {
@@ -90,6 +94,11 @@ export type RecipeIngredient = {
   grams: number;
   source_type: "fdc_branded" | "fdc_foundation" | "fdc_sr_legacy" | "user_entered";
   fdc_id?: number;
+  serving_size_grams?: number;
+  calories_per_serving?: number;
+  protein_g_per_serving?: number;
+  carbs_g_per_serving?: number;
+  fat_g_per_serving?: number;
 };
 
 export type Recipe = {

@@ -121,6 +121,13 @@ These migrations have been verified against a clean PostgreSQL database and reru
 
 The second migration adds numeric integrity constraints and a composite `(user_id, logged_date)` index.
 
+PowerShell equivalent:
+
+```powershell
+Get-Content backend\users_migration.sql | docker compose exec -T db psql -X -v ON_ERROR_STOP=1 -U nutrilog -d nutrilog -f -
+Get-Content backend\migrations\002_meal_integrity.sql | docker compose exec -T db psql -X -v ON_ERROR_STOP=1 -U nutrilog -d nutrilog -f -
+```
+
 `AUTO_CREATE_TABLES=true` is a local development convenience. It does not replace migrations for existing database tables.
 
 ## 5. Start FastAPI
@@ -172,7 +179,7 @@ From the backend directory with the virtual environment activated:
 python -m pytest tests/ -v
 ```
 
-The current integration branch has 103 passing backend tests, covering:
+The current integration branch has a passing backend test suite, covering:
 
 - Authentication and profile persistence
 - Profile validation and user isolation
@@ -238,8 +245,22 @@ Do not use `docker compose down -v` unless intentionally deleting the PostgreSQL
 - Photo-assisted food recognition remains outside the verified MVP.
 - Meal recommendations and social features are not part of the current tested backend.
 - The TDEE endpoint calculates estimated daily energy expenditure but is not yet integrated into automatic onboarding target recommendations.
-- Frontend meal editing and deletion controls require separate verification.
+- Frontend meal editing and deletion controls are available on the dashboard and should be included in the manual demo flow.
 - External USDA food search requires valid API configuration and network access.
+
+## 13. Three-minute demo script
+
+Use a fresh browser session and a new local account. The exact nutrition values below are a fixture for manual entries, so the dashboard math is easy to verify:
+
+1. Sign up as `Demo User`, complete onboarding with a 2,000 kcal target, 120g protein, 250g carbs, and 65g fat.
+2. Log a manual breakfast with quantity 1: 300 kcal, 10g protein, 50g carbs, and 6g fat.
+3. Confirm the dashboard shows 300 consumed calories and 1,700 remaining calories.
+4. Edit the meal quantity to 2 and confirm the dashboard shows 600 consumed calories.
+5. Change the meal date to yesterday and confirm today's dashboard returns to zero.
+6. Delete the meal and confirm yesterday's dashboard returns to zero.
+7. Log out, log back in, and confirm the account and targets remain available.
+
+Photo-assisted logging, recommendations, social features, charts/history, and production OAuth remain intentionally deferred from the MVP.
 
 ## Contributors
 

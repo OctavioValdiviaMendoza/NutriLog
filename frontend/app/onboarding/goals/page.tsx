@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  calculateBmr as requestBmr,
+  calculateTdee,
   getCurrentUser,
   saveProfile,
 } from "@/lib/api";
@@ -21,9 +21,11 @@ export default function GoalsPage() {
   const [goalPace, setGoalPace] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bmr, setBmr] = useState<number | null>(null);
-  const [bmrLoading, setBmrLoading] = useState(false);
-  const [bmrError, setBmrError] = useState("");
+  const [tdee, setTdee] = useState<number | null>(null);
+  const [calculationLoading, setCalculationLoading] = useState(false);
+  const [calculationError, setCalculationError] = useState("");
   const [submitError, setSubmitError] = useState("");
+  const [calorieTarget, setCalorieTarget] = useState("");
 
   useEffect(() => {
     getCurrentUser().catch(() => router.replace("/login"));
@@ -52,42 +54,45 @@ export default function GoalsPage() {
 
     const controller = new AbortController();
 
-    async function calculateBmr() {
-      setBmrLoading(true);
-      setBmrError("");
+    async function calculateEnergy() {
+      setCalculationLoading(true);
+      setCalculationError("");
 
       try {
-        const data = await requestBmr({
-          gender: gender as "male" | "female",
-          age: age as number,
-          activity_level: activityLevel as
-            | "sedentary"
-            | "light"
-            | "moderate"
-            | "very-active",
-          weight_lbs: weightLbs,
-          height_feet: heightFeetValue,
-          height_inches: heightInchesValue,
-        }, { signal: controller.signal });
+        const data = await calculateTdee(
+          {
+            gender: gender as "male" | "female",
+            age: age as number,
+            activity_level: activityLevel as ProfileGoals["activity_level"],
+            weight_lbs: weightLbs,
+            height_feet: heightFeetValue,
+            height_inches: heightInchesValue,
+          },
+          { signal: controller.signal }
+        );
 
-        if (!controller.signal.aborted) setBmr(data.bmr);
-      } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") {
-          return;
+        if (!controller.signal.aborted) {
+          setBmr(data.bmr);
+          setTdee(data.tdee);
         }
+      } catch (error) {
+        if (controller.signal.aborted) return;
 
-        setBmrError(
-          error instanceof Error ? error.message : "Unable to calculate BMR.",
+        setCalculationError(
+          error instanceof Error
+            ? error.message
+            : "Unable to calculate energy expenditure."
         );
         setBmr(null);
+        setTdee(null);
       } finally {
         if (!controller.signal.aborted) {
-          setBmrLoading(false);
+          setCalculationLoading(false);
         }
       }
     }
 
-    calculateBmr();
+    void calculateEnergy();
 
     return () => controller.abort();
   }, [
@@ -95,13 +100,11 @@ export default function GoalsPage() {
     age,
     formIsComplete,
     gender,
-    heightFeet,
     heightFeetValue,
-    heightInches,
     heightInchesValue,
-    weight,
     weightLbs,
   ]);
+
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -166,35 +169,67 @@ export default function GoalsPage() {
           onSubmit={handleSubmit}
           className="space-y-8 rounded-3xl bg-white p-8 shadow-sm"
         >
-          {formIsComplete && (bmrLoading || bmr !== null || bmrError) && (
+        {formIsComplete &&
+          (calculationLoading ||
+            bmr !== null ||
+            tdee !== null ||
+            calculationError) && (
             <section
               aria-live="polite"
               className="rounded-2xl border border-green-200 bg-green-700 p-5 text-white shadow-sm sm:p-6"
             >
-              <p className="text-sm font-medium uppercase tracking-wide text-green-100">
-                Your estimated BMR
-              </p>
+              <h2 className="text-lg font-semibold">
+                Your estimated daily energy needs
+              </h2>
 
-              {bmrLoading && (
-                <p className="mt-2 text-green-50">Calculating your result...</p>
-              )}
-
-              {bmr !== null && !bmrLoading && (
-                <p className="mt-1 text-3xl font-bold">
-                  {bmr.toLocaleString()} calories/day
+              {calculationLoading && (
+                <p className="mt-3 text-green-100">
+                  Calculating your results...
                 </p>
               )}
 
-              {bmrError && (
-                <p className="mt-2 text-sm text-green-100">{bmrError}</p>
+              {!calculationLoading && bmr !== null && tdee !== null && (
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <p className="text-sm text-green-100">
+                      Basal Metabolic Rate (BMR)
+                    </p>
+                    <p className="mt-1 text-3xl font-bold">
+                      {bmr.toLocaleString()}
+                    </p>
+                    <p className="text-xs text-green-100">
+                      Calories/day at rest
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-green-100">
+                      Total Daily Energy Expenditure (TDEE)
+                    </p>
+                    <p className="mt-1 text-3xl font-bold">
+                      {tdee.toLocaleString()}
+                    </p>
+                    <p className="text-xs text-green-100">
+                      Estimated calories/day with activity
+                    </p>
+                  </div>
+                </div>
               )}
 
-              <p className="mt-3 text-sm text-green-100">
-                This is the estimated energy your body uses at rest. Activity
-                level will be used later to calculate your daily calorie target.
+              {calculationError && (
+                <p className="mt-3 text-sm text-red-100">
+                  {calculationError}
+                </p>
+              )}
+
+              <p className="mt-4 text-sm text-green-100">
+                TDEE estimates the calories needed to maintain your current
+                weight based on your activity level. Your personal calorie
+                target can be adjusted below.
               </p>
             </section>
           )}
+
 
           <section className="rounded-2xl border border-green-100 bg-green-50/40 p-5 sm:p-6">
             <h2 className="mb-5 text-xl font-semibold text-green-950">
@@ -427,10 +462,30 @@ export default function GoalsPage() {
                   name="calories"
                   type="number"
                   placeholder="2000"
+                  value={calorieTarget}
+                  onChange={(event) => setCalorieTarget(event.target.value)}
                   min="1"
                   className="w-full rounded-xl border border-green-200 px-4 py-3 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
                   required
                 />
+
+                {tdee !== null && !calculationLoading && (
+                  <div className="mt-3">
+                    <p className="text-sm text-gray-600">
+                      Estimated maintenance calories:{" "}
+                      <strong>{tdee.toLocaleString()} kcal/day</strong>
+                    </p>
+
+                    <button
+                      type="button"
+                      onClick={() => setCalorieTarget(String(tdee))}
+                      className="mt-2 rounded-lg border border-green-700 px-3 py-2 text-sm font-medium text-green-700 hover:bg-green-50"
+                    >
+                      Use TDEE as calorie target
+                    </button>
+                  </div>
+                )}
+
               </div>
 
               <div>

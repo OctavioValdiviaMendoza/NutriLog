@@ -94,6 +94,29 @@ export function calculateBmr(
   );
 }
 
+export function calculateTdee(
+  payload: {
+    gender: "male" | "female";
+    age: number;
+    activity_level: "sedentary" | "light" | "moderate" | "very-active";
+    weight_lbs: number;
+    height_feet: number;
+    height_inches: number;
+  },
+  options: RequestInit = {},
+) {
+  return apiRequest<{
+    bmr: number;
+    activity_multiplier: number;
+    tdee: number;
+  }>("/calculations/tdee", {
+    ...options,
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+
 export function saveProfile(payload: ProfileGoals) {
   return apiRequest<ProfileGoals>("/profile", {
     method: "PUT",

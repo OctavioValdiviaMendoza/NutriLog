@@ -1,4 +1,4 @@
-import type { ApiError, DailySummary, FoodSearchResult, Meal, ProfileGoals, Recipe, User } from "./types";
+import type { ApiError, DailySummary, FoodSearchResult, Meal, MealUpdate, ProfileGoals, Recipe, User } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -111,6 +111,19 @@ export function createMeal(payload: Omit<Meal, "id" | "user_id" | "created_at">)
   return apiRequest<Meal>("/meals", {
     method: "POST",
     body: JSON.stringify(payload),
+  });
+}
+
+export function updateMeal(mealId: number, payload: MealUpdate) {
+  return apiRequest<Meal>(`/meals/${mealId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function deleteMeal(mealId: number) {
+  return apiRequest<void>(`/meals/${mealId}`, {
+    method: "DELETE",
   });
 }
 

@@ -46,6 +46,24 @@ export type Meal = {
   notes?: string;
 };
 
+export type MealUpdate = Partial<
+  Pick<
+    Meal,
+    | "meal_type"
+    | "logged_date"
+    | "food_name"
+    | "serving_size"
+    | "quantity"
+  >
+> & {
+  calories?: number;
+  protein_g?: number;
+  carbs_g?: number;
+  fat_g?: number;
+  notes?: string | null;
+};
+
+
 export type FoodSearchResult = {
   fdc_id: number;
   description: string;

@@ -5,7 +5,17 @@ import { useRouter } from "next/navigation";
 import { createMeal, createRecipe, getCurrentUser, listRecipes, logRecipe, searchFoods } from "@/lib/api";
 import type { FoodSearchResult, MealType, Recipe } from "@/lib/types";
 
-const today = new Date().toISOString().slice(0, 10);
+
+function getLocalDate(): string {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
 type Mode = "usda" | "manual" | "recipes";
 type Ingredient = { food_name: string; quantity: number; unit: "g" | "oz" | "serving"; source_type: "fdc_branded" | "fdc_foundation" | "fdc_sr_legacy" | "user_entered"; fdc_id?: number; serving_size_grams?: number; calories_per_serving: number; protein_g_per_serving: number; carbs_g_per_serving: number; fat_g_per_serving: number };
 
@@ -61,12 +71,12 @@ export default function NewMealPage() {
     const food = selected;
     const values = mode === "manual" ? { food_name: manual.food_name, serving_size: manual.serving_size, calories: Number(manual.calories), protein_g: Number(manual.protein_g), carbs_g: Number(manual.carbs_g), fat_g: Number(manual.fat_g) } : { food_name: food?.description ?? "", serving_size: food?.household_serving_full_text || `${food?.serving_size ?? "1"} serving`, calories: food?.calories ?? 0, protein_g: food?.protein_g ?? 0, carbs_g: food?.carbs_g ?? 0, fat_g: food?.fat_g ?? 0 };
     if (!values.food_name || Object.values(values).some((value) => typeof value === "number" && !Number.isFinite(value))) { setMessage("Complete the food and nutrition fields before saving."); return; }
-    try { await createMeal({ ...values, meal_type: mealType, logged_date: today, quantity, source_type: mode === "manual" ? "user_entered" : sourceType(food!), fdc_id: mode === "manual" ? undefined : food?.fdc_id, brand_name: mode === "manual" ? undefined : food?.brand_name, brand_owner: mode === "manual" ? undefined : food?.brand_owner }); router.push("/"); }
+    try { await createMeal({ ...values, meal_type: mealType, logged_date: getLocalDate(), quantity, source_type: mode === "manual" ? "user_entered" : sourceType(food!), fdc_id: mode === "manual" ? undefined : food?.fdc_id, brand_name: mode === "manual" ? undefined : food?.brand_name, brand_owner: mode === "manual" ? undefined : food?.brand_owner }); router.push("/dashboard"); }
     catch (error) { setMessage(error instanceof Error ? error.message : "Could not save meal."); }
   }
 
   async function addRecipeToLog(recipeToLog: Recipe) {
-    try { await logRecipe(recipeToLog.id, { meal_type: mealType, logged_date: today, servings: quantity }); router.push("/"); }
+    try { await logRecipe(recipeToLog.id, { meal_type: mealType, logged_date: getLocalDate(), servings: quantity }); router.push("/dashboard"); }
     catch (error) { setMessage(error instanceof Error ? error.message : "Could not log recipe."); }
   }
 

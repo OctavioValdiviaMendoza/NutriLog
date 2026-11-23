@@ -55,3 +55,18 @@ python train.py --data data/FoodSeg103 --splits data/processed --version v1 --us
 ```
 
 This saves `ml/model/weights.pth` and `ml/model/model_meta.json` together.
+
+## Run the checks
+
+From `ml/`, with the ML environment activated:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+These checks cover metric calculations, image uploads, category matching, and a
+small training run. Test weights are saved in a temporary folder, so the real
+model and dataset files are not changed.
+
+Shared code lives in `categories.py` (food names), `modeling.py` (model setup),
+`metrics.py` (scores and thresholds), and `preprocessing.py` (image preparation).

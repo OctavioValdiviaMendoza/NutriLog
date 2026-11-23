@@ -8,6 +8,7 @@ from app.api.routes.calculations import router as calculations_router
 from app.api.routes.dashboard import router as dashboard_router
 from app.api.routes.health import router as health_router
 from app.api.routes.meals import router as meals_router
+from app.api.routes.ml import router as ml_router
 from app.api.routes.profile import router as profile_router
 from app.api.routes.recipes import router as recipes_router
 from app.core.config import settings
@@ -50,3 +51,4 @@ app.include_router(dashboard_router)
 app.include_router(profile_router)
 app.include_router(meals_router)
 app.include_router(recipes_router)
+app.include_router(ml_router)

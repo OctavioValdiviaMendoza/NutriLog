@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     session_max_age_seconds: int = 60 * 60 * 24 * 7
     cookie_secure: bool = False
     cookie_samesite: str = "lax"
+    ml_service_url: str = "http://127.0.0.1:8001"
 
     model_config = SettingsConfigDict(
         env_file=BACKEND_DIR / ".env",

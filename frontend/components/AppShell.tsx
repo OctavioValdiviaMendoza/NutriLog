@@ -8,6 +8,7 @@ const links = [
   { href: "/dashboard", label: "Dashboard", icon: "⌂" },
   { href: "/meals/new", label: "Log meal", icon: "+" },
   { href: "/meals/new?mode=recipes", label: "Recipes", icon: "▣" },
+  { href: "/settings", label: "Settings", icon: "⚙" },
 ];
 
 export default function AppShell({
@@ -21,10 +22,16 @@ export default function AppShell({
   const recipeMode = activeSection === "recipes";
   function isActive(href: string) {
     const [path, query] = href.split("?");
+
     if (pathname !== path) return false;
+
+    if (path !== "/meals/new") return true;
+
     if (query === "mode=recipes") return recipeMode;
+
     return !recipeMode;
   }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-slate-200 bg-white px-5 py-6 lg:block">

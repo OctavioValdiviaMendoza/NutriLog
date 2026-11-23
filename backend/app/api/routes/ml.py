@@ -1,14 +1,4 @@
-"""
-backend/app/api/routes/ml.py
-----------------------------
-Proxy route: authenticated clients POST a meal photo here, and this route
-forwards it to the ML inference service (ml/server.py on port 8001).
-
-Keeping the ML call behind the main backend means:
-  - Auth is enforced in one place (session cookie check).
-  - The phone never talks directly to the ML service.
-  - CORS stays simple — the ML service only accepts requests from localhost.
-"""
+"""Check the user session before forwarding photos to the food recognition service."""
 
 from __future__ import annotations
 
@@ -29,9 +19,9 @@ class SupportedCategory(BaseModel):
 
 
 class FoodPrediction(BaseModel):
-    label: str        # e.g. "poultry"
-    display: str      # e.g. "Poultry"
-    confidence: float # independent sigmoid score, 0.0 - 1.0
+    label: str
+    display: str
+    confidence: float
 
 
 class AnalyzeResponse(BaseModel):
@@ -46,10 +36,8 @@ async def analyze_meal_photo(
     file: UploadFile = File(..., description="Meal photo (JPEG, PNG, or WebP)"),
     _current_user: User = Depends(get_current_user),
 ) -> AnalyzeResponse:
-    """
-    Forward an authenticated photo upload to the ML inference service and
-    return thresholded multi-label food predictions with confidence scores.
-    """
+    """Send the photo to the model and return its food suggestions."""
+    # Read the uploaded bytes and forward them to the local ML service.
     ml_url = f"{settings.ml_service_url}/analyze"
     image_bytes = await file.read()
 
@@ -73,6 +61,7 @@ async def analyze_meal_photo(
             detail="The food recognition service took too long to respond. Please try again.",
         )
 
+    # Pass through any validation or server error message from the ML service.
     if response.status_code != 200:
         try:
             detail = response.json().get("detail", "Food recognition failed.")

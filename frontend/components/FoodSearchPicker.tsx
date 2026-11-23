@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { getFoodDetails, searchFoods } from "@/lib/api";
+import FoodPortionFields from "./FoodPortionFields";
 import type { FoodSearchResult } from "@/lib/types";
 
 export type FoodSelection = {
@@ -10,6 +11,15 @@ export type FoodSelection = {
   unit: "g" | "oz" | "serving" | "portion";
   portion_id?: number;
 };
+
+export function createFoodSelection(food: FoodSearchResult): FoodSelection {
+  const isServing = food.nutrition_basis === "serving";
+  return {
+    food,
+    amount: isServing ? 1 : 100,
+    unit: isServing ? "serving" : "g",
+  };
+}
 
 export function basisLabel(food: FoodSearchResult) {
   return food.nutrition_basis === "serving"
@@ -80,11 +90,7 @@ export default function FoodSearchPicker({
     try {
       const details = await getFoodDetails(food.fdc_id);
       if (id !== request.current) return;
-      update({
-        food: details,
-        amount: details.nutrition_basis === "serving" ? 1 : 100,
-        unit: details.nutrition_basis === "serving" ? "serving" : "g",
-      });
+      update(createFoodSelection(details));
       setMessage("");
     } catch (error) {
       if (id === request.current)
@@ -194,121 +200,11 @@ export default function FoodSearchPicker({
           <p className="mt-1 text-sm text-amber-900">
             {basisLabel(selection.food)}
           </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {selection.food.nutrition_basis_grams &&
-              [50, 100, 150].map((grams) => (
-                <button
-                  type="button"
-                  key={grams}
-                  aria-pressed={
-                    selection.unit === "g" && selection.amount === grams
-                  }
-                  onClick={() =>
-                    update({
-                      ...selection,
-                      amount: grams,
-                      unit: "g",
-                      portion_id: undefined,
-                    })
-                  }
-                  className={`rounded-xl border px-4 py-2 text-sm font-medium ${selection.unit === "g" && selection.amount === grams ? "border-green-700 bg-green-700 text-white" : "border-amber-300 bg-white"}`}
-                >
-                  {grams}g
-                </button>
-              ))}
-            {selection.food.nutrition_basis === "serving" && (
-              <button
-                type="button"
-                onClick={() =>
-                  update({
-                    ...selection,
-                    amount: 1,
-                    unit: "serving",
-                    portion_id: undefined,
-                  })
-                }
-                className="rounded-xl border bg-white px-4 py-2 text-sm"
-              >
-                1 label serving
-              </button>
-            )}
-            {selection.food.portions?.slice(0, 6).map((portion) => (
-              <button
-                type="button"
-                key={portion.id}
-                aria-pressed={
-                  selection.unit === "portion" &&
-                  selection.portion_id === portion.id
-                }
-                onClick={() =>
-                  update({
-                    ...selection,
-                    amount: 1,
-                    unit: "portion",
-                    portion_id: portion.id,
-                  })
-                }
-                className={`rounded-xl border px-4 py-2 text-sm ${selection.portion_id === portion.id ? "border-green-700 bg-green-700 text-white" : "bg-white"}`}
-              >
-                {portion.label} ({portion.grams}g)
-              </button>
-            ))}
-          </div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <label className="text-sm font-medium">
-              Amount
-              <input
-                type="number"
-                min="0.01"
-                max="1000"
-                step="any"
-                value={selection.amount || ""}
-                onChange={(event) =>
-                  update({ ...selection, amount: Number(event.target.value) })
-                }
-                className="mt-1 w-full rounded-xl border bg-white p-3"
-              />
-            </label>
-            <label className="text-sm font-medium">
-              Unit
-              <select
-                value={
-                  selection.unit === "portion"
-                    ? `portion:${selection.portion_id}`
-                    : selection.unit
-                }
-                onChange={(event) => {
-                  const value = event.target.value;
-                  update({
-                    ...selection,
-                    amount: 1,
-                    unit: value.startsWith("portion:")
-                      ? "portion"
-                      : (value as FoodSelection["unit"]),
-                    portion_id: value.startsWith("portion:")
-                      ? Number(value.split(":")[1])
-                      : undefined,
-                  });
-                }}
-                className="mt-1 w-full rounded-xl border bg-white p-3"
-              >
-                {selection.food.nutrition_basis_grams && (
-                  <>
-                    <option value="g">Grams</option>
-                    <option value="oz">Ounces</option>
-                  </>
-                )}
-                {selection.food.nutrition_basis === "serving" && (
-                  <option value="serving">Label servings</option>
-                )}
-                {selection.food.portions?.map((portion) => (
-                  <option value={`portion:${portion.id}`} key={portion.id}>
-                    {portion.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+          <FoodPortionFields
+            selection={selection}
+            onChange={update}
+            disabled={disabled}
+          />
           {!selection.food.portions?.length && (
             <p className="mt-3 text-xs text-amber-900">
               USDA has no household portions for this record. Cup and whole-item

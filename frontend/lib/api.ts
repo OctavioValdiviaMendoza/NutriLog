@@ -37,25 +37,33 @@ export async function apiRequest<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
+  const headers = new Headers(options.headers);
+  // Let the browser set the multipart boundary when sending a photo.
+  if (!(options.body instanceof FormData) && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
   let response: Response;
   try {
     response = await fetch(`${API_URL}${path}`, {
       ...options,
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
+      headers,
     });
   } catch (error) {
-    if (error instanceof DOMException && error.name === "AbortError") throw error;
-    throw new Error("Unable to reach the NutriLog API. Check that the backend is running.");
+    if (error instanceof DOMException && error.name === "AbortError")
+      throw error;
+    throw new Error(
+      "Unable to reach the NutriLog API. Check that the backend is running.",
+    );
   }
 
   const data: unknown = await response.json().catch(() => null);
 
   if (!response.ok) {
-    if ((response.status === 401 || response.status === 403) && !path.startsWith("/auth/")) {
+    if (
+      (response.status === 401 || response.status === 403) &&
+      !path.startsWith("/auth/")
+    ) {
       window.open("/login?reason=session-expired", "_self");
     }
     const error = new Error(getErrorMessage(data)) as Error & ApiError;
@@ -140,12 +148,16 @@ export function getProfile() {
   return apiRequest<ProfileGoals>("/profile");
 }
 
-export function getNutritionRecommendations(payload: RecommendationRequest, options: RequestInit = {}) {
+export function getNutritionRecommendations(
+  payload: RecommendationRequest,
+  options: RequestInit = {},
+) {
   return apiRequest<NutritionRecommendation>("/calculations/recommendations", {
-    ...options, method: "POST", body: JSON.stringify(payload),
+    ...options,
+    method: "POST",
+    body: JSON.stringify(payload),
   });
 }
-
 
 export function saveProfile(payload: ProfileGoals) {
   return apiRequest<ProfileGoals>("/profile", {
@@ -164,11 +176,23 @@ export function getFoodDetails(fdcId: number) {
   return apiRequest<FoodSearchResult>(`/meals/foods/${fdcId}`);
 }
 
-export function logUsdaFood(payload: { fdc_id: number; meal_type: string; logged_date: string; amount: number; unit: "g" | "oz" | "serving" | "portion"; portion_id?: number }) {
-  return apiRequest<Meal>("/meals/foods/log", { method: "POST", body: JSON.stringify(payload) });
+export function logUsdaFood(payload: {
+  fdc_id: number;
+  meal_type: string;
+  logged_date: string;
+  amount: number;
+  unit: "g" | "oz" | "serving" | "portion";
+  portion_id?: number;
+}) {
+  return apiRequest<Meal>("/meals/foods/log", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
 }
 
-export function createMeal(payload: Omit<Meal, "id" | "user_id" | "created_at">) {
+export function createMeal(
+  payload: Omit<Meal, "id" | "user_id" | "created_at">,
+) {
   return apiRequest<Meal>("/meals", {
     method: "POST",
     body: JSON.stringify(payload),
@@ -188,55 +212,65 @@ export function deleteMeal(mealId: number) {
   });
 }
 
-export function listRecipes() { return apiRequest<Recipe[]>("/recipes"); }
-
-export function createRecipe(payload: { name: string; instructions?: string; servings: number; ingredients: unknown[] }) {
-  return apiRequest<Recipe>("/recipes", { method: "POST", body: JSON.stringify(payload) });
+export function listRecipes() {
+  return apiRequest<Recipe[]>("/recipes");
 }
 
-export function updateRecipe(recipeId: number, payload: { name: string; instructions?: string; servings: number; ingredients: unknown[] }) {
-  return apiRequest<Recipe>(`/recipes/${recipeId}`, { method: "PATCH", body: JSON.stringify(payload) });
+export function createRecipe(payload: {
+  name: string;
+  instructions?: string;
+  servings: number;
+  ingredients: unknown[];
+}) {
+  return apiRequest<Recipe>("/recipes", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function updateRecipe(
+  recipeId: number,
+  payload: {
+    name: string;
+    instructions?: string;
+    servings: number;
+    ingredients: unknown[];
+  },
+) {
+  return apiRequest<Recipe>(`/recipes/${recipeId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
 }
 
 export function deleteRecipe(recipeId: number) {
   return apiRequest<void>(`/recipes/${recipeId}`, { method: "DELETE" });
 }
 
-export function logRecipe(recipeId: number, payload: { meal_type: string; logged_date: string; servings: number }) {
-  return apiRequest<Meal>(`/recipes/${recipeId}/log`, { method: "POST", body: JSON.stringify(payload) });
+export function logRecipe(
+  recipeId: number,
+  payload: { meal_type: string; logged_date: string; servings: number },
+) {
+  return apiRequest<Meal>(`/recipes/${recipeId}/log`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
 }
 
 export function getDailySummary(date?: string) {
-  return apiRequest<DailySummary>(date ? `/summary?date=${encodeURIComponent(date)}` : "/summary");
+  return apiRequest<DailySummary>(
+    date ? `/summary?date=${encodeURIComponent(date)}` : "/summary",
+  );
 }
 
-export async function analyzeMealPhoto(file: File): Promise<PhotoAnalyzeResponse> {
+export async function analyzeMealPhoto(
+  file: File,
+): Promise<PhotoAnalyzeResponse> {
   const formData = new FormData();
   formData.append("file", file, file.name || "meal-photo.jpg");
 
-  let response: Response;
-  try {
-    response = await fetch(`${API_URL}/ml/analyze`, {
-      method: "POST",
-      credentials: "include",
-      body: formData,
-    });
-  } catch (error) {
-    if (error instanceof DOMException && error.name === "AbortError") throw error;
-    throw new Error("Unable to reach the NutriLog API. Check that the backend is running.");
-  }
-
-  const data: unknown = await response.json().catch(() => null);
-
-  if (!response.ok) {
-    if (response.status === 401 || response.status === 403) {
-      window.open("/login?reason=session-expired", "_self");
-    }
-    const error = new Error(getErrorMessage(data)) as Error & ApiError;
-    error.status = response.status;
-    error.details = data;
-    throw error;
-  }
-
-  return data as PhotoAnalyzeResponse;
+  return apiRequest<PhotoAnalyzeResponse>("/ml/analyze", {
+    method: "POST",
+    body: formData,
+  });
 }

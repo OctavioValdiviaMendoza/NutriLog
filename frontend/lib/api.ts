@@ -125,6 +125,10 @@ export function calculateTdee(
   });
 }
 
+export function getProfile() {
+  return apiRequest<ProfileGoals>("/profile");
+}
+
 
 export function saveProfile(payload: ProfileGoals) {
   return apiRequest<ProfileGoals>("/profile", {

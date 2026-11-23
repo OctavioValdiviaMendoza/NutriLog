@@ -2,7 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "@/lib/api";
+import { getProfile, login } from "@/lib/api";
+import type { ApiError } from "@/lib/types";
 
 export default function LoginPage() {
   const [message, setMessage] = useState("");
@@ -21,9 +22,29 @@ export default function LoginPage() {
         email: String(form.get("email") ?? ""),
         password: String(form.get("password") ?? ""),
       });
-      router.push("/dashboard");
+
+      try {
+        await getProfile();
+
+        // Existing profile: go to dashboard.
+        router.replace("/dashboard");
+      } catch (error) {
+        const apiError = error as Error & ApiError;
+
+        if (apiError.status === 404) {
+          // No profile: complete onboarding.
+          router.replace("/onboarding/goals");
+        } else {
+          // Do not treat network or server errors as missing profiles.
+          throw error;
+        }
+      }
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Unable to log in.");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to log in."
+      );
     } finally {
       setIsSubmitting(false);
     }

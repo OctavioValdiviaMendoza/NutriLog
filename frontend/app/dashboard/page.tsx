@@ -6,12 +6,14 @@ import { useRouter } from "next/navigation";
 import {
   deleteMeal,
   getCurrentUser,
+  getProfile,
   getDailySummary,
   logout,
   updateMeal,
 } from "@/lib/api";
 import type { DailySummary, Meal } from "@/lib/types";
 import AppShell from "@/components/AppShell";
+import type { ApiError } from "@/lib/types";
 
 const formatDate = (value: Date): string => {
   const year = value.getFullYear();
@@ -157,11 +159,53 @@ export default function DashboardPage() {
       }, {}) ?? {},
     [summary],
   );
-
   useEffect(() => {
-    getCurrentUser()
-      .then((user) => setUserName(user.name))
-      .catch(() => router.replace("/login"));
+    let active = true;
+
+    async function checkAccess() {
+      try {
+        const user = await getCurrentUser();
+
+        if (!active) return;
+
+        setUserName(user.name);
+
+        try {
+          await getProfile();
+        } catch (error) {
+          if (!active) return;
+
+          const apiError = error as Error & ApiError;
+
+          if (apiError.status === 404) {
+            router.replace("/onboarding/goals");
+            return;
+          }
+
+          throw error;
+        }
+      } catch (error) {
+        if (!active) return;
+
+        const apiError = error as Error & ApiError;
+
+        if (apiError.status === 401 || apiError.status === 403) {
+          router.replace("/login");
+        } else {
+          setError(
+            error instanceof Error
+              ? error.message
+              : "Unable to verify your profile."
+          );
+        }
+      }
+    }
+
+    void checkAccess();
+
+    return () => {
+      active = false;
+    };
   }, [router]);
   useEffect(() => {
     getDailySummary(selectedDate || formatDate(new Date()))

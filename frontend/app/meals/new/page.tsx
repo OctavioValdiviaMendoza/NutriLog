@@ -3,6 +3,7 @@
 import { FormEvent, Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
+  analyzeMealPhoto,
   createMeal,
   logUsdaFood,
   createRecipe,
@@ -15,11 +16,17 @@ import {
 } from "@/lib/api";
 import AppShell from "@/components/AppShell";
 import PhotoMealCapture, { type MealPhotoDraft } from "@/components/PhotoMealCapture";
+import PhotoMealReview from "@/components/PhotoMealReview";
 import FoodSearchPicker, {
   basisLabel,
   type FoodSelection,
 } from "@/components/FoodSearchPicker";
-import type { FoodSearchResult, MealType, Recipe } from "@/lib/types";
+import type {
+  FoodSearchResult,
+  MealType,
+  PhotoAnalyzeResponse,
+  Recipe,
+} from "@/lib/types";
 
 function getLocalDate(): string {
   const now = new Date();
@@ -67,6 +74,9 @@ function NewMealContent() {
   const searchParams = useSearchParams();
   const [mode, setMode] = useState<Mode>("usda");
   const [photo, setPhoto] = useState<MealPhotoDraft | null>(null);
+  const [photoAnalysis, setPhotoAnalysis] = useState<PhotoAnalyzeResponse | null>(null);
+  const [analyzingPhoto, setAnalyzingPhoto] = useState(false);
+  const [photoAnalyzeError, setPhotoAnalyzeError] = useState("");
   const [query, setQuery] = useState("");
   const [foods, setFoods] = useState<FoodSearchResult[]>([]);
   const [usdaSelection, setUsdaSelection] = useState<FoodSelection | null>(
@@ -404,6 +414,25 @@ function NewMealContent() {
     }
   }
 
+  async function handleAnalyzePhoto() {
+    if (!photo || analyzingPhoto) return;
+    setAnalyzingPhoto(true);
+    setPhotoAnalyzeError("");
+    setPhotoAnalysis(null);
+    try {
+      const result = await analyzeMealPhoto(photo.file);
+      setPhotoAnalysis(result);
+    } catch (error) {
+      setPhotoAnalyzeError(
+        error instanceof Error
+          ? error.message
+          : "Could not analyze this photo. Please try again or use USDA search.",
+      );
+    } finally {
+      setAnalyzingPhoto(false);
+    }
+  }
+
   return (
     <AppShell activeSection={mode === "recipes" ? "recipes" : "meals"}>
       <main className="min-h-screen bg-slate-50 px-3 py-5 text-gray-900 sm:px-6 sm:py-10">
@@ -417,8 +446,8 @@ function NewMealContent() {
           </button>
           <h1 className="text-3xl font-bold text-green-950">Log a meal</h1>
           <p className="mt-2 text-gray-600">
-            Search USDA foods, enter nutrition, use a saved recipe, or try the
-            photo preview.
+            Search USDA foods, enter nutrition, use a saved recipe, or log from a
+            meal photo.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             {(["usda", "manual", "recipes", "photo"] as Mode[]).map((item) => (
@@ -492,7 +521,30 @@ function NewMealContent() {
               />
             </label>
           </div>
-          {mode === "photo" && <PhotoMealCapture photo={photo} onChange={setPhoto} />}
+          {mode === "photo" && (
+            <>
+              <PhotoMealCapture
+                photo={photo}
+                onChange={(nextPhoto) => {
+                  setPhoto(nextPhoto);
+                  setPhotoAnalysis(null);
+                  setPhotoAnalyzeError("");
+                }}
+                onAnalyze={() => void handleAnalyzePhoto()}
+                analyzing={analyzingPhoto}
+                analyzeError={photoAnalyzeError}
+              />
+              {photoAnalysis && (
+                <PhotoMealReview
+                  key={`${photo?.previewUrl ?? "none"}-${photoAnalysis.model_version}`}
+                  analysis={photoAnalysis}
+                  mealType={mealType}
+                  loggedDate={loggedDate || getLocalDate()}
+                  onLogged={() => router.push("/dashboard")}
+                />
+              )}
+            </>
+          )}
           {mode === "usda" && (
             <>
               <FoodSearchPicker

@@ -17,9 +17,15 @@ const buttonClass = "min-h-11 rounded-xl border border-slate-300 bg-white px-4 p
 export default function PhotoMealCapture({
   photo,
   onChange,
+  onAnalyze,
+  analyzing = false,
+  analyzeError = "",
 }: {
   photo: MealPhotoDraft | null;
   onChange: (photo: MealPhotoDraft | null) => void;
+  onAnalyze?: () => void;
+  analyzing?: boolean;
+  analyzeError?: string;
 }) {
   const [camera, setCamera] = useState<"idle" | "opening" | "live">("idle");
   const [ready, setReady] = useState(false);
@@ -178,7 +184,6 @@ export default function PhotoMealCapture({
       <div>
         <div className="flex flex-wrap items-center gap-2">
           <h2 id="photo-heading" className="text-xl font-semibold text-green-950">Start with a meal photo</h2>
-          <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">Preview only</span>
         </div>
         <p className="mt-2 text-sm text-slate-600">Keep the whole plate in view and use good lighting. You will confirm the foods and portions before logging.</p>
       </div>
@@ -245,12 +250,29 @@ export default function PhotoMealCapture({
       {preparing && <p role="status" className="text-sm text-slate-600">Preparing your photo…</p>}
       {error && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</p>}
 
-      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-        <h3 className="font-semibold text-amber-950">Food recognition is coming next</h3>
-        <p id="photo-recognition-note" className="mt-1 text-sm text-amber-900">For now, you can take and preview a photo. It is not analyzed or added to your log. Use USDA search, manual entry, or a saved recipe to log your meal.</p>
-        <button type="button" disabled aria-describedby="photo-recognition-note" className="mt-3 min-h-11 rounded-xl bg-slate-200 px-4 py-3 text-sm font-semibold text-slate-600">Analyze photo · Coming soon</button>
-      </div>
-      <p className="text-xs text-slate-500">Your photo stays in this browser tab and is cleared when you leave or reload this page. Nothing is uploaded. JPEG, PNG, and WebP up to 20 MB; HEIC preview depends on your browser.</p>
+      {onAnalyze && (
+        <div className="rounded-2xl border border-green-200 bg-green-50/50 p-4">
+          <h3 className="font-semibold text-green-950">Identify foods in this photo</h3>
+          <p id="photo-recognition-note" className="mt-1 text-sm text-slate-700">
+            NutriLog will suggest likely foods with model confidence scores. You will confirm each food and enter your portions before anything is logged.
+          </p>
+          <button
+            type="button"
+            disabled={!photo || analyzing || preparing}
+            onClick={onAnalyze}
+            aria-describedby="photo-recognition-note"
+            className="mt-3 min-h-11 rounded-xl bg-green-700 px-5 py-3 text-sm font-semibold text-white hover:bg-green-800 disabled:bg-slate-300 disabled:text-slate-600"
+          >
+            {analyzing ? "Analyzing photo…" : "Analyze photo"}
+          </button>
+          {analyzeError && (
+            <p role="alert" className="mt-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+              {analyzeError}
+            </p>
+          )}
+        </div>
+      )}
+      <p className="text-xs text-slate-500">Your photo stays in this browser tab until you choose Analyze photo, and is cleared when you leave or reload this page. JPEG, PNG, and WebP up to 20 MB; HEIC preview depends on your browser.</p>
     </section>
   );
 }

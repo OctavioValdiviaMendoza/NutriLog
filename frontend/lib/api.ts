@@ -1,4 +1,14 @@
-import type { ApiError, DailySummary, FoodSearchResult, Meal, MealUpdate, ProfileGoals, Recipe, User } from "./types";
+import type {
+  ApiError,
+  DailySummary,
+  FoodSearchResult,
+  Meal,
+  MealUpdate,
+  PhotoAnalyzeResponse,
+  ProfileGoals,
+  Recipe,
+  User,
+} from "./types";
 import type { NutritionRecommendation, RecommendationRequest } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -198,4 +208,35 @@ export function logRecipe(recipeId: number, payload: { meal_type: string; logged
 
 export function getDailySummary(date?: string) {
   return apiRequest<DailySummary>(date ? `/summary?date=${encodeURIComponent(date)}` : "/summary");
+}
+
+export async function analyzeMealPhoto(file: File): Promise<PhotoAnalyzeResponse> {
+  const formData = new FormData();
+  formData.append("file", file, file.name || "meal-photo.jpg");
+
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}/ml/analyze`, {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    });
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") throw error;
+    throw new Error("Unable to reach the NutriLog API. Check that the backend is running.");
+  }
+
+  const data: unknown = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      window.open("/login?reason=session-expired", "_self");
+    }
+    const error = new Error(getErrorMessage(data)) as Error & ApiError;
+    error.status = response.status;
+    error.details = data;
+    throw error;
+  }
+
+  return data as PhotoAnalyzeResponse;
 }

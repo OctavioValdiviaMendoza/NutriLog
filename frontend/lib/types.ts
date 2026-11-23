@@ -155,6 +155,24 @@ export type DailySummary = {
   meals: Meal[];
 };
 
+export type SupportedFoodCategory = {
+  label: string;
+  display: string;
+};
+
+export type PhotoFoodPrediction = {
+  label: string;
+  display: string;
+  confidence: number;
+};
+
+export type PhotoAnalyzeResponse = {
+  predictions: PhotoFoodPrediction[];
+  model_ready: boolean;
+  model_version: string;
+  supported_categories: SupportedFoodCategory[];
+};
+
 export type ApiError = {
   message: string;
   status: number;

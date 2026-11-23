@@ -26,6 +26,109 @@ MEAL_PAYLOAD = {
 }
 
 
+@pytest.mark.parametrize("description,title", [
+    ("Chicken, broiler or fryers, breast, skinless, boneless, meat only, cooked, grilled", "Grilled chicken breast · Skinless, boneless"),
+    ("Rice, brown, long-grain, cooked", "Cooked brown rice · Long-grain"),
+    ("Fish, salmon, cooked, baked", "Baked salmon"),
+    ("Potatoes, flesh and skin, baked", "Baked potatoes · Flesh and skin"),
+])
+def test_meal_log_and_summary_use_compact_names_with_original_details(meal_clients, description, title):
+    client, _ = meal_clients
+    payload = {**MEAL_PAYLOAD, "food_name": description, "source_type": "fdc_sr_legacy", "fdc_id": 123}
+    response = client.post("/meals", json=payload)
+    assert response.status_code == 201, response.text
+    meal = response.json()
+    assert meal["display_name"] == title
+    assert meal["food_name"] == description
+    assert meal["original_usda_description"] == description
+    assert "nutrition_snapshot" not in meal
+    listed = client.get("/meals").json()[0]
+    summary = client.get("/summary?date=2026-11-21").json()["meals"][0]
+    assert listed["display_name"] == summary["display_name"] == title
+    assert summary["original_usda_description"] == description
+
+    # Quantity edits and user-supplied titles must preserve source attribution.
+    edited = client.patch(f"/meals/{meal['id']}", json={"quantity": 3})
+    assert edited.json()["display_name"] == title
+    assert edited.json()["calories"] == MEAL_PAYLOAD["calories"] * 3
+    renamed = client.patch(f"/meals/{meal['id']}", json={"food_name": "My Lunch"})
+    assert renamed.json()["display_name"] == "My Lunch"
+    assert renamed.json()["original_usda_description"] == description
+
+
+def test_manual_food_names_are_not_rewritten(meal_clients):
+    client, _ = meal_clients
+    response = client.post("/meals", json={**MEAL_PAYLOAD, "food_name": "Mom's rice, beans & BBQ"})
+    assert response.status_code == 201
+    assert response.json()["display_name"] == "Mom's rice, beans & BBQ"
+    assert response.json()["original_usda_description"] is None
+
+
+def test_existing_usda_meals_get_short_names_without_migration(meal_clients):
+    client, _ = meal_clients
+    description = "Fish, salmon, cooked, baked"
+    created = client.post("/meals", json={**MEAL_PAYLOAD, "food_name": description, "source_type": "fdc_sr_legacy", "fdc_id": 123}).json()
+    with SessionLocal() as db:
+        meal = db.get(Meal, created["id"])
+        snapshot = dict(meal.nutrition_snapshot)
+        snapshot.pop("usda_description")
+        meal.nutrition_snapshot = snapshot
+        db.commit()
+    meal = client.get("/meals").json()[0]
+    assert meal["display_name"] == "Baked salmon"
+    assert meal["original_usda_description"] == description
+
+
+@pytest.mark.parametrize("unit,amount,portion_id,expected", [
+    ("g", 50, None, 10), ("g", 150, None, 30),
+    ("oz", 1, None, 20 * 28.349523125 / 100),
+    ("portion", 2, 0, 72),
+])
+def test_usda_log_calculates_portions_and_preserves_edit_math(meal_clients, monkeypatch, unit, amount, portion_id, expected):
+    from app.api.routes import meals
+    from app.schemas.meal import FoodSearchResult
+
+    monkeypatch.setattr(meals, "get_food", lambda _: FoodSearchResult(
+        fdc_id=123, description="Tomato", data_type="Foundation", nutrition_basis="100g", nutrition_basis_grams=100,
+        calories=20, protein_g=1, carbs_g=4, fat_g=0.2,
+        portions=[{"id": 0, "label": "1 cup", "grams": 180}],
+    ))
+    client, _ = meal_clients
+    response = client.post("/meals/foods/log", json={"fdc_id": 123, "meal_type": "lunch", "logged_date": "2026-11-21", "amount": amount, "unit": unit, "portion_id": portion_id})
+    assert response.status_code == 201, response.text
+    meal = response.json()
+    assert meal["calories"] == pytest.approx(expected)
+    edited = client.patch(f"/meals/{meal['id']}", json={"quantity": amount * 2})
+    assert edited.status_code == 200
+    assert edited.json()["calories"] == pytest.approx(expected * 2)
+
+
+def test_usda_log_rejects_unknown_portions(meal_clients, monkeypatch):
+    from app.api.routes import meals
+    from app.schemas.meal import FoodSearchResult
+
+    monkeypatch.setattr(meals, "get_food", lambda _: FoodSearchResult(fdc_id=123, description="Tomato", calories=20, protein_g=1, carbs_g=4, fat_g=0.2))
+    client, _ = meal_clients
+    response = client.post("/meals/foods/log", json={"fdc_id": 123, "meal_type": "lunch", "logged_date": "2026-11-21", "amount": 1, "unit": "portion", "portion_id": 99})
+    assert response.status_code == 422
+
+
+def test_usda_log_uses_whole_label_servings(meal_clients, monkeypatch):
+    from app.api.routes import meals
+    from app.schemas.meal import FoodSearchResult
+
+    monkeypatch.setattr(meals, "get_food", lambda _: FoodSearchResult(
+        fdc_id=123, description="Sandwich", data_type="Branded", nutrition_basis="serving",
+        nutrition_basis_grams=180, household_serving_full_text="1 sandwich",
+        calories=400, protein_g=25, carbs_g=40, fat_g=15,
+    ))
+    client, _ = meal_clients
+    response = client.post("/meals/foods/log", json={"fdc_id": 123, "meal_type": "lunch", "logged_date": "2026-11-21", "amount": 2, "unit": "serving"})
+    assert response.status_code == 201, response.text
+    assert response.json()["calories"] == 800
+    assert response.json()["serving_size"] == "1 sandwich"
+
+
 @pytest.fixture
 def meal_clients():
     emails = [

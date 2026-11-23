@@ -139,6 +139,14 @@ export function searchFoods(query: string, brandedOnly = false) {
   );
 }
 
+export function getFoodDetails(fdcId: number) {
+  return apiRequest<FoodSearchResult>(`/meals/foods/${fdcId}`);
+}
+
+export function logUsdaFood(payload: { fdc_id: number; meal_type: string; logged_date: string; amount: number; unit: "g" | "oz" | "serving" | "portion"; portion_id?: number }) {
+  return apiRequest<Meal>("/meals/foods/log", { method: "POST", body: JSON.stringify(payload) });
+}
+
 export function createMeal(payload: Omit<Meal, "id" | "user_id" | "created_at">) {
   return apiRequest<Meal>("/meals", {
     method: "POST",
@@ -163,6 +171,14 @@ export function listRecipes() { return apiRequest<Recipe[]>("/recipes"); }
 
 export function createRecipe(payload: { name: string; instructions?: string; servings: number; ingredients: unknown[] }) {
   return apiRequest<Recipe>("/recipes", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export function updateRecipe(recipeId: number, payload: { name: string; instructions?: string; servings: number; ingredients: unknown[] }) {
+  return apiRequest<Recipe>(`/recipes/${recipeId}`, { method: "PATCH", body: JSON.stringify(payload) });
+}
+
+export function deleteRecipe(recipeId: number) {
+  return apiRequest<void>(`/recipes/${recipeId}`, { method: "DELETE" });
 }
 
 export function logRecipe(recipeId: number, payload: { meal_type: string; logged_date: string; servings: number }) {

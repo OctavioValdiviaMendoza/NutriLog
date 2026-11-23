@@ -31,7 +31,6 @@ class RecommendationRequest(BMRRequest, FiniteInputs):
     model_config = ConfigDict(allow_inf_nan=False, extra="forbid")
     goal: Goal
     goal_pace: Pace | None = None
-    eligibility: Literal["general_adult", "pregnant_or_breastfeeding", "clinician_guidance", "unsure"]
     current_targets: CurrentTargets = Field(default_factory=CurrentTargets)
 
     @model_validator(mode="after")

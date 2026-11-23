@@ -1,7 +1,8 @@
 # Nutrition suggestions: adult-v1
 
-`POST /calculations/recommendations` returns estimates without saving eligibility
-answers or changing a profile. This is a deterministic calculator, not trained ML.
+`POST /calculations/recommendations` returns estimates without changing a profile.
+It does not collect pregnancy, breastfeeding, or medical-status answers. This is a
+deterministic calculator, not trained ML.
 
 - Maintenance/wellness use existing Mifflin–St Jeor TDEE. Loss subtracts 5/10/15%
   for gentle/balanced/ambitious pace, capped at 500 kcal/day. Gain/muscle add those
@@ -9,9 +10,10 @@ answers or changing a profile. This is a deterministic calculator, not trained M
 - Protein: 1.2 × pounds × 0.45359237 grams. Fat: selected calories × 0.30 / 9 grams.
   Carbs: (selected calories − protein × 4 − fat × 9) / 4 grams. Grams round to one
   decimal. Full plans balance within 1 kcal after rounding.
-- Automatic eligibility: 18+, explicitly general adult, BMI 18.5 to under 40.
-  Pregnancy/breastfeeding, clinician-directed diets and uncertain eligibility get
-  explanations, without automatic targets. BMI is a screen, not a diagnosis.
+- Automatic calculation checks: 18+ and BMI 18.5 to under 40. BMI is a screen, not
+  a diagnosis. Suggestions appear from the existing body details, goal, and pace;
+  there is no separate eligibility question. These estimates do not account for
+  pregnancy, breastfeeding, or medical conditions; those are outside this feature.
 - App calorie bounds: 1,500–6,000 for the male equation; 1,200–6,000 for the female
   equation. These limits do not guarantee an appropriate diet for an individual.
 - Adult planning ranges: protein 10–35%, fat 20–35%, carbs 45–65% of calories,

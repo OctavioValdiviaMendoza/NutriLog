@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 
 BASE = {"gender": "male", "age": 25, "activity_level": "moderate", "weight_lbs": 170,
-        "height_feet": 5, "height_inches": 10, "goal": "maintain-weight", "eligibility": "general_adult"}
+        "height_feet": 5, "height_inches": 10, "goal": "maintain-weight"}
 client = TestClient(app)
 
 
@@ -45,9 +45,6 @@ def test_pace_is_monotonic_and_protein_does_not_depend_on_pace():
 
 @pytest.mark.parametrize("changes,reason", [
     ({"age": 17}, "18 and older"),
-    ({"eligibility": "pregnant_or_breastfeeding"}, "pregnancy"),
-    ({"eligibility": "clinician_guidance"}, "clinician"),
-    ({"eligibility": "unsure"}, "uncertain"),
     ({"weight_lbs": 85}, "BMI"),
     ({"weight_lbs": 400}, "BMI"),
     ({"gender": "female", "age": 80, "weight_lbs": 110, "height_feet": 5, "height_inches": 1, "activity_level": "sedentary", "goal": "lose-weight", "goal_pace": "ambitious"}, "kcal/day"),
@@ -81,14 +78,17 @@ def test_low_manual_calories_can_be_replaced_with_valid_full_plan():
     assert data["suggestions"]["carb_target"] is None
 
 
-@pytest.mark.parametrize("changes", [{"goal": "unknown"}, {"goal": "gain-weight"}, {"eligibility": ""}, {"current_targets": {"fat_target": -1}}])
+@pytest.mark.parametrize("changes", [{"goal": "unknown"}, {"goal": "gain-weight"}, {"current_targets": {"fat_target": -1}}])
 def test_invalid_inputs_are_rejected(changes):
     assert client.post("/calculations/recommendations", json={**BASE, **changes}).status_code == 422
 
 
-def test_nonfinite_and_missing_eligibility_are_rejected():
+def test_nonfinite_values_are_rejected():
     payload = {**BASE, "weight_lbs": 1e309}
     assert client.post("/calculations/recommendations", content=json.dumps(payload), headers={"Content-Type": "application/json"}).status_code == 422
-    payload = {**BASE}
-    payload.pop("eligibility")
-    assert client.post("/calculations/recommendations", json=payload).status_code == 422
+
+
+def test_suggestions_do_not_require_health_questionnaire():
+    data = recommend()
+    assert data["eligible"]
+    assert data["recommended"]["protein_target"] == round(170 * 0.45359237 * 1.2, 1)

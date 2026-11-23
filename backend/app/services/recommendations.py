@@ -46,8 +46,6 @@ def recommend_targets(payload: RecommendationRequest) -> RecommendationResponse:
 
     if payload.age < 18:
         result.messages.append("Automatic nutrition suggestions are for adults 18 and older. Younger users need age-specific professional guidance.")
-    if payload.eligibility != "general_adult":
-        result.messages.append("Automatic suggestions are unavailable during pregnancy/breastfeeding, for clinician-directed diets, or when eligibility is uncertain. Use targets from your healthcare professional.")
     if not 18.5 <= bmi < 40:
         result.messages.append("Your height and weight fall outside this app's BMI screening range (18.5 to under 40). Check your entries and ask a clinician for individualized targets. BMI is a screening measure, not a diagnosis.")
     issue = _calorie_issue(calories, CALORIE_FLOORS[payload.gender])

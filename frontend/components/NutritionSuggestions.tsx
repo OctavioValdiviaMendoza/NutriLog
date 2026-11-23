@@ -7,7 +7,6 @@ import type {
   NutritionTargets,
   ProfileGoals,
   RecommendationPerson,
-  RecommendationRequest,
 } from "@/lib/types";
 
 type TargetKey = keyof NutritionTargets;
@@ -59,9 +58,6 @@ export default function NutritionSuggestions({
   onApply: (targets: Partial<NutritionTargets>) => void;
   disabled?: boolean;
 }) {
-  const [eligibility, setEligibility] = useState<
-    RecommendationRequest["eligibility"] | ""
-  >("");
   const [result, setResult] = useState<{
     key: string;
     data?: NutritionRecommendation;
@@ -78,14 +74,12 @@ export default function NutritionSuggestions({
     if (!Number.isFinite(value) || value <= 0) invalidTarget = true;
     else currentTargets[key] = value;
   }
-  const ready =
-    person && goal && (!needsPace || pace) && eligibility && !invalidTarget;
+  const ready = person && goal && (!needsPace || pace) && !invalidTarget;
   const requestKey = ready
     ? JSON.stringify({
         ...person,
         goal: goal as ProfileGoals["goal"],
         goal_pace: needsPace ? pace : undefined,
-        eligibility,
         current_targets: currentTargets,
       })
     : "";
@@ -144,40 +138,6 @@ export default function NutritionSuggestions({
         General adult planning estimates. Suggestions never replace your entries
         until you apply them, and do not guarantee a healthy diet or a
         particular rate of weight change.
-      </p>
-      <label
-        className="mt-4 block text-sm font-medium"
-        htmlFor="recommendation-eligibility"
-      >
-        Before using automatic suggestions
-      </label>
-      <select
-        id="recommendation-eligibility"
-        value={eligibility}
-        onChange={(event) =>
-          setEligibility(event.target.value as typeof eligibility)
-        }
-        disabled={disabled}
-        className="mt-2 min-h-11 w-full min-w-0 rounded-xl border bg-white px-3 py-3 text-base"
-      >
-        <option value="">Select your situation</option>
-        <option value="general_adult">
-          Adult; none of the situations below apply
-        </option>
-        <option value="pregnant_or_breastfeeding">
-          Pregnant or breastfeeding
-        </option>
-        <option value="clinician_guidance">
-          Medical condition or clinician-directed diet
-        </option>
-        <option value="unsure">
-          Not sure if these suggestions apply to me
-        </option>
-      </select>
-      <p className="mt-1 text-xs text-slate-500">
-        Choose a clinician-directed plan for conditions that affect nutrition.
-        This answer is used for this calculation and is not saved to your
-        profile.
       </p>
       {!person || !goal || (needsPace && !pace) ? (
         <p className="mt-3 text-sm text-slate-600">

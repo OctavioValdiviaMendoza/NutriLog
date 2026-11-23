@@ -32,7 +32,6 @@ export type RecommendationPerson = Pick<ProfileGoals, "age" | "gender" | "activi
 export type RecommendationRequest = RecommendationPerson & {
   goal: ProfileGoals["goal"];
   goal_pace?: ProfileGoals["goal_pace"];
-  eligibility: "general_adult" | "pregnant_or_breastfeeding" | "clinician_guidance" | "unsure";
   current_targets: Partial<NutritionTargets>;
 };
 export type NutritionRecommendation = {

@@ -1,0 +1,723 @@
+[
+  {
+    "foodseg_id": 1,
+    "name": "candy",
+    "train_images": 21,
+    "test_images": 11,
+    "total_images": 32
+  },
+  {
+    "foodseg_id": 2,
+    "name": "egg tart",
+    "train_images": 3,
+    "test_images": 1,
+    "total_images": 4
+  },
+  {
+    "foodseg_id": 3,
+    "name": "french fries",
+    "train_images": 166,
+    "test_images": 78,
+    "total_images": 244
+  },
+  {
+    "foodseg_id": 4,
+    "name": "chocolate",
+    "train_images": 49,
+    "test_images": 18,
+    "total_images": 67
+  },
+  {
+    "foodseg_id": 5,
+    "name": "biscuit",
+    "train_images": 218,
+    "test_images": 77,
+    "total_images": 295
+  },
+  {
+    "foodseg_id": 6,
+    "name": "popcorn",
+    "train_images": 10,
+    "test_images": 4,
+    "total_images": 14
+  },
+  {
+    "foodseg_id": 7,
+    "name": "pudding",
+    "train_images": 4,
+    "test_images": 1,
+    "total_images": 5
+  },
+  {
+    "foodseg_id": 8,
+    "name": "ice cream",
+    "train_images": 635,
+    "test_images": 277,
+    "total_images": 912
+  },
+  {
+    "foodseg_id": 9,
+    "name": "cheese butter",
+    "train_images": 276,
+    "test_images": 120,
+    "total_images": 396
+  },
+  {
+    "foodseg_id": 10,
+    "name": "cake",
+    "train_images": 333,
+    "test_images": 126,
+    "total_images": 459
+  },
+  {
+    "foodseg_id": 11,
+    "name": "wine",
+    "train_images": 96,
+    "test_images": 41,
+    "total_images": 137
+  },
+  {
+    "foodseg_id": 12,
+    "name": "milkshake",
+    "train_images": 80,
+    "test_images": 27,
+    "total_images": 107
+  },
+  {
+    "foodseg_id": 13,
+    "name": "coffee",
+    "train_images": 127,
+    "test_images": 57,
+    "total_images": 184
+  },
+  {
+    "foodseg_id": 14,
+    "name": "juice",
+    "train_images": 129,
+    "test_images": 54,
+    "total_images": 183
+  },
+  {
+    "foodseg_id": 15,
+    "name": "milk",
+    "train_images": 45,
+    "test_images": 28,
+    "total_images": 73
+  },
+  {
+    "foodseg_id": 16,
+    "name": "tea",
+    "train_images": 24,
+    "test_images": 6,
+    "total_images": 30
+  },
+  {
+    "foodseg_id": 17,
+    "name": "almond",
+    "train_images": 70,
+    "test_images": 24,
+    "total_images": 94
+  },
+  {
+    "foodseg_id": 18,
+    "name": "red beans",
+    "train_images": 20,
+    "test_images": 14,
+    "total_images": 34
+  },
+  {
+    "foodseg_id": 19,
+    "name": "cashew",
+    "train_images": 13,
+    "test_images": 10,
+    "total_images": 23
+  },
+  {
+    "foodseg_id": 20,
+    "name": "dried cranberries",
+    "train_images": 18,
+    "test_images": 12,
+    "total_images": 30
+  },
+  {
+    "foodseg_id": 21,
+    "name": "soy",
+    "train_images": 32,
+    "test_images": 14,
+    "total_images": 46
+  },
+  {
+    "foodseg_id": 22,
+    "name": "walnut",
+    "train_images": 41,
+    "test_images": 22,
+    "total_images": 63
+  },
+  {
+    "foodseg_id": 23,
+    "name": "peanut",
+    "train_images": 7,
+    "test_images": 2,
+    "total_images": 9
+  },
+  {
+    "foodseg_id": 24,
+    "name": "egg",
+    "train_images": 223,
+    "test_images": 69,
+    "total_images": 292
+  },
+  {
+    "foodseg_id": 25,
+    "name": "apple",
+    "train_images": 105,
+    "test_images": 51,
+    "total_images": 156
+  },
+  {
+    "foodseg_id": 26,
+    "name": "date",
+    "train_images": 7,
+    "test_images": 2,
+    "total_images": 9
+  },
+  {
+    "foodseg_id": 27,
+    "name": "apricot",
+    "train_images": 22,
+    "test_images": 8,
+    "total_images": 30
+  },
+  {
+    "foodseg_id": 28,
+    "name": "avocado",
+    "train_images": 57,
+    "test_images": 24,
+    "total_images": 81
+  },
+  {
+    "foodseg_id": 29,
+    "name": "banana",
+    "train_images": 100,
+    "test_images": 56,
+    "total_images": 156
+  },
+  {
+    "foodseg_id": 30,
+    "name": "strawberry",
+    "train_images": 388,
+    "test_images": 172,
+    "total_images": 560
+  },
+  {
+    "foodseg_id": 31,
+    "name": "cherry",
+    "train_images": 159,
+    "test_images": 53,
+    "total_images": 212
+  },
+  {
+    "foodseg_id": 32,
+    "name": "blueberry",
+    "train_images": 152,
+    "test_images": 58,
+    "total_images": 210
+  },
+  {
+    "foodseg_id": 33,
+    "name": "raspberry",
+    "train_images": 47,
+    "test_images": 22,
+    "total_images": 69
+  },
+  {
+    "foodseg_id": 34,
+    "name": "mango",
+    "train_images": 43,
+    "test_images": 12,
+    "total_images": 55
+  },
+  {
+    "foodseg_id": 35,
+    "name": "olives",
+    "train_images": 43,
+    "test_images": 15,
+    "total_images": 58
+  },
+  {
+    "foodseg_id": 36,
+    "name": "peach",
+    "train_images": 73,
+    "test_images": 18,
+    "total_images": 91
+  },
+  {
+    "foodseg_id": 37,
+    "name": "lemon",
+    "train_images": 423,
+    "test_images": 172,
+    "total_images": 595
+  },
+  {
+    "foodseg_id": 38,
+    "name": "pear",
+    "train_images": 30,
+    "test_images": 14,
+    "total_images": 44
+  },
+  {
+    "foodseg_id": 39,
+    "name": "fig",
+    "train_images": 21,
+    "test_images": 5,
+    "total_images": 26
+  },
+  {
+    "foodseg_id": 40,
+    "name": "pineapple",
+    "train_images": 94,
+    "test_images": 36,
+    "total_images": 130
+  },
+  {
+    "foodseg_id": 41,
+    "name": "grape",
+    "train_images": 123,
+    "test_images": 35,
+    "total_images": 158
+  },
+  {
+    "foodseg_id": 42,
+    "name": "kiwi",
+    "train_images": 38,
+    "test_images": 13,
+    "total_images": 51
+  },
+  {
+    "foodseg_id": 43,
+    "name": "melon",
+    "train_images": 20,
+    "test_images": 4,
+    "total_images": 24
+  },
+  {
+    "foodseg_id": 44,
+    "name": "orange",
+    "train_images": 183,
+    "test_images": 70,
+    "total_images": 253
+  },
+  {
+    "foodseg_id": 45,
+    "name": "watermelon",
+    "train_images": 29,
+    "test_images": 8,
+    "total_images": 37
+  },
+  {
+    "foodseg_id": 46,
+    "name": "steak",
+    "train_images": 728,
+    "test_images": 337,
+    "total_images": 1065
+  },
+  {
+    "foodseg_id": 47,
+    "name": "pork",
+    "train_images": 474,
+    "test_images": 195,
+    "total_images": 669
+  },
+  {
+    "foodseg_id": 48,
+    "name": "chicken duck",
+    "train_images": 848,
+    "test_images": 394,
+    "total_images": 1242
+  },
+  {
+    "foodseg_id": 49,
+    "name": "sausage",
+    "train_images": 196,
+    "test_images": 53,
+    "total_images": 249
+  },
+  {
+    "foodseg_id": 50,
+    "name": "fried meat",
+    "train_images": 154,
+    "test_images": 84,
+    "total_images": 238
+  },
+  {
+    "foodseg_id": 51,
+    "name": "lamb",
+    "train_images": 71,
+    "test_images": 28,
+    "total_images": 99
+  },
+  {
+    "foodseg_id": 52,
+    "name": "sauce",
+    "train_images": 818,
+    "test_images": 327,
+    "total_images": 1145
+  },
+  {
+    "foodseg_id": 53,
+    "name": "crab",
+    "train_images": 14,
+    "test_images": 6,
+    "total_images": 20
+  },
+  {
+    "foodseg_id": 54,
+    "name": "fish",
+    "train_images": 258,
+    "test_images": 95,
+    "total_images": 353
+  },
+  {
+    "foodseg_id": 55,
+    "name": "shellfish",
+    "train_images": 30,
+    "test_images": 13,
+    "total_images": 43
+  },
+  {
+    "foodseg_id": 56,
+    "name": "shrimp",
+    "train_images": 99,
+    "test_images": 45,
+    "total_images": 144
+  },
+  {
+    "foodseg_id": 57,
+    "name": "soup",
+    "train_images": 67,
+    "test_images": 22,
+    "total_images": 89
+  },
+  {
+    "foodseg_id": 58,
+    "name": "bread",
+    "train_images": 990,
+    "test_images": 414,
+    "total_images": 1404
+  },
+  {
+    "foodseg_id": 59,
+    "name": "corn",
+    "train_images": 343,
+    "test_images": 145,
+    "total_images": 488
+  },
+  {
+    "foodseg_id": 60,
+    "name": "hamburg",
+    "train_images": 5,
+    "test_images": 1,
+    "total_images": 6
+  },
+  {
+    "foodseg_id": 61,
+    "name": "pizza",
+    "train_images": 54,
+    "test_images": 13,
+    "total_images": 67
+  },
+  {
+    "foodseg_id": 62,
+    "name": "hanamaki baozi",
+    "train_images": 19,
+    "test_images": 9,
+    "total_images": 28
+  },
+  {
+    "foodseg_id": 63,
+    "name": "wonton dumplings",
+    "train_images": 9,
+    "test_images": 10,
+    "total_images": 19
+  },
+  {
+    "foodseg_id": 64,
+    "name": "pasta",
+    "train_images": 114,
+    "test_images": 48,
+    "total_images": 162
+  },
+  {
+    "foodseg_id": 65,
+    "name": "noodles",
+    "train_images": 187,
+    "test_images": 75,
+    "total_images": 262
+  },
+  {
+    "foodseg_id": 66,
+    "name": "rice",
+    "train_images": 464,
+    "test_images": 206,
+    "total_images": 670
+  },
+  {
+    "foodseg_id": 67,
+    "name": "pie",
+    "train_images": 397,
+    "test_images": 161,
+    "total_images": 558
+  },
+  {
+    "foodseg_id": 68,
+    "name": "tofu",
+    "train_images": 48,
+    "test_images": 20,
+    "total_images": 68
+  },
+  {
+    "foodseg_id": 69,
+    "name": "eggplant",
+    "train_images": 19,
+    "test_images": 7,
+    "total_images": 26
+  },
+  {
+    "foodseg_id": 70,
+    "name": "potato",
+    "train_images": 785,
+    "test_images": 306,
+    "total_images": 1091
+  },
+  {
+    "foodseg_id": 71,
+    "name": "garlic",
+    "train_images": 73,
+    "test_images": 20,
+    "total_images": 93
+  },
+  {
+    "foodseg_id": 72,
+    "name": "cauliflower",
+    "train_images": 157,
+    "test_images": 70,
+    "total_images": 227
+  },
+  {
+    "foodseg_id": 73,
+    "name": "tomato",
+    "train_images": 790,
+    "test_images": 349,
+    "total_images": 1139
+  },
+  {
+    "foodseg_id": 74,
+    "name": "kelp",
+    "train_images": 1,
+    "test_images": 2,
+    "total_images": 3
+  },
+  {
+    "foodseg_id": 75,
+    "name": "seaweed",
+    "train_images": 7,
+    "test_images": 5,
+    "total_images": 12
+  },
+  {
+    "foodseg_id": 76,
+    "name": "spring onion",
+    "train_images": 133,
+    "test_images": 57,
+    "total_images": 190
+  },
+  {
+    "foodseg_id": 77,
+    "name": "rape",
+    "train_images": 54,
+    "test_images": 21,
+    "total_images": 75
+  },
+  {
+    "foodseg_id": 78,
+    "name": "ginger",
+    "train_images": 23,
+    "test_images": 8,
+    "total_images": 31
+  },
+  {
+    "foodseg_id": 79,
+    "name": "okra",
+    "train_images": 15,
+    "test_images": 2,
+    "total_images": 17
+  },
+  {
+    "foodseg_id": 80,
+    "name": "lettuce",
+    "train_images": 403,
+    "test_images": 171,
+    "total_images": 574
+  },
+  {
+    "foodseg_id": 81,
+    "name": "pumpkin",
+    "train_images": 72,
+    "test_images": 16,
+    "total_images": 88
+  },
+  {
+    "foodseg_id": 82,
+    "name": "cucumber",
+    "train_images": 369,
+    "test_images": 164,
+    "total_images": 533
+  },
+  {
+    "foodseg_id": 83,
+    "name": "white radish",
+    "train_images": 36,
+    "test_images": 16,
+    "total_images": 52
+  },
+  {
+    "foodseg_id": 84,
+    "name": "carrot",
+    "train_images": 881,
+    "test_images": 398,
+    "total_images": 1279
+  },
+  {
+    "foodseg_id": 85,
+    "name": "asparagus",
+    "train_images": 187,
+    "test_images": 77,
+    "total_images": 264
+  },
+  {
+    "foodseg_id": 86,
+    "name": "bamboo shoots",
+    "train_images": 3,
+    "test_images": 3,
+    "total_images": 6
+  },
+  {
+    "foodseg_id": 87,
+    "name": "broccoli",
+    "train_images": 703,
+    "test_images": 309,
+    "total_images": 1012
+  },
+  {
+    "foodseg_id": 88,
+    "name": "celery stick",
+    "train_images": 164,
+    "test_images": 65,
+    "total_images": 229
+  },
+  {
+    "foodseg_id": 89,
+    "name": "cilantro mint",
+    "train_images": 636,
+    "test_images": 264,
+    "total_images": 900
+  },
+  {
+    "foodseg_id": 90,
+    "name": "snow peas",
+    "train_images": 48,
+    "test_images": 24,
+    "total_images": 72
+  },
+  {
+    "foodseg_id": 91,
+    "name": "cabbage",
+    "train_images": 94,
+    "test_images": 33,
+    "total_images": 127
+  },
+  {
+    "foodseg_id": 92,
+    "name": "bean sprouts",
+    "train_images": 24,
+    "test_images": 13,
+    "total_images": 37
+  },
+  {
+    "foodseg_id": 93,
+    "name": "onion",
+    "train_images": 373,
+    "test_images": 158,
+    "total_images": 531
+  },
+  {
+    "foodseg_id": 94,
+    "name": "pepper",
+    "train_images": 305,
+    "test_images": 131,
+    "total_images": 436
+  },
+  {
+    "foodseg_id": 95,
+    "name": "green beans",
+    "train_images": 152,
+    "test_images": 63,
+    "total_images": 215
+  },
+  {
+    "foodseg_id": 96,
+    "name": "French beans",
+    "train_images": 253,
+    "test_images": 121,
+    "total_images": 374
+  },
+  {
+    "foodseg_id": 97,
+    "name": "king oyster mushroom",
+    "train_images": 10,
+    "test_images": 3,
+    "total_images": 13
+  },
+  {
+    "foodseg_id": 98,
+    "name": "shiitake",
+    "train_images": 82,
+    "test_images": 54,
+    "total_images": 136
+  },
+  {
+    "foodseg_id": 99,
+    "name": "enoki mushroom",
+    "train_images": 6,
+    "test_images": 3,
+    "total_images": 9
+  },
+  {
+    "foodseg_id": 100,
+    "name": "oyster mushroom",
+    "train_images": 7,
+    "test_images": 2,
+    "total_images": 9
+  },
+  {
+    "foodseg_id": 101,
+    "name": "white button mushroom",
+    "train_images": 99,
+    "test_images": 37,
+    "total_images": 136
+  },
+  {
+    "foodseg_id": 102,
+    "name": "salad",
+    "train_images": 12,
+    "test_images": 10,
+    "total_images": 22
+  },
+  {
+    "foodseg_id": 103,
+    "name": "other ingredients",
+    "train_images": 155,
+    "test_images": 72,
+    "total_images": 227
+  }
+]

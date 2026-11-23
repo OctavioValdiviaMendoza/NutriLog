@@ -12,5 +12,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  ml:
+    build:
+      context: ./ml
+      dockerfile: Dockerfile
+    container_name: nutrilog-ml
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    volumes:
+      # Mount model weights so you can update them without rebuilding
+      - ./ml/model:/app/model
+    # ML service has no dependencies on the DB, but backend needs it up
+    # before accepting /ml/analyze requests.
+    profiles:
+      - ml   # start with: docker compose --profile ml up
+
 volumes:
   postgres_data:

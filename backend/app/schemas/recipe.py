@@ -28,6 +28,10 @@ class RecipeCreate(BaseModel):
     ingredients: list[RecipeIngredientCreate] = Field(min_length=1, max_length=100)
 
 
+class RecipeUpdate(RecipeCreate):
+    pass
+
+
 class RecipeIngredientResponse(RecipeIngredientCreate):
     model_config = ConfigDict(from_attributes=True)
 

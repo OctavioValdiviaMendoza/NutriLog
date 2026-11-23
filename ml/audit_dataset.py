@@ -1,25 +1,4 @@
-"""
-ml/audit_dataset.py
--------------------
-Audits a downloaded FoodSeg103 archive and generates versioned multi-label
-dataset artifacts without building a segmentation model:
-
-    If a food's category ID appears anywhere in an image's segmentation mask
-    (above an optional minimum pixel threshold), that food is included in the
-    image's multi-label target.
-
-Outputs written to --out (default: ml/data/processed):
-    - class_counts_<version>.json : Per-class image counts across all 103 categories
-    - labels_<version>.json       : Versioned list of selected supported categories
-    - train_split_<version>.json  : Training image paths + multi-label targets
-    - val_split_<version>.json    : Validation image paths + multi-label targets
-    - test_split_<version>.json   : Official FoodSeg103 test split (held out)
-
-Usage:
-    cd ml
-    python audit_dataset.py --data data/FoodSeg103 --version v1
-    python audit_dataset.py --data data/FoodSeg103 --version v1 --categories rice,bread,noodles,potatoes,broccoli,carrots,tomatoes,lettuce,eggs,fish,steak,poultry
-"""
+"""Read FoodSeg103 masks and save food labels, counts, and train/validation/test splits."""
 
 from __future__ import annotations
 
@@ -32,23 +11,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-# Default candidate categories from the NutriLog ML plan.
-# Keys are our canonical NutriLog labels; values are case-insensitive aliases
-# that match FoodSeg103's category_id.txt naming.
-DEFAULT_CANDIDATES: dict[str, tuple[str, ...]] = {
-    "rice": ("rice",),
-    "bread": ("bread",),
-    "noodles": ("noodles", "pasta"),
-    "potatoes": ("potato", "potatoes"),
-    "broccoli": ("broccoli",),
-    "carrots": ("carrot", "carrots"),
-    "tomatoes": ("tomato", "tomatoes"),
-    "lettuce": ("lettuce", "salad"),
-    "eggs": ("egg", "eggs"),
-    "fish": ("fish",),
-    "steak": ("steak", "beef"),
-    "poultry": ("chicken", "duck", "poultry", "chicken/duck"),
-}
+from categories import DEFAULT_CANDIDATES
 
 
 def parse_category_file(category_path: Path) -> dict[int, str]:
@@ -76,7 +39,7 @@ def resolve_selected_categories(
     raw_categories: dict[int, str],
     requested: list[str],
 ) -> list[dict]:
-    """Map requested canonical labels to one or more FoodSeg103 category IDs."""
+    """Match our food names to the names used by FoodSeg103."""
     name_to_id = {name.lower(): cid for cid, name in raw_categories.items()}
     selected: list[dict] = []
     missing: list[str] = []
@@ -141,6 +104,7 @@ def scan_split(
     class_counts: Counter[int] = Counter()
 
     for mask_path in mask_files:
+        # Look up the matching photo (.jpg or .png) for this mask file.
         stem = mask_path.stem
         img_path = img_dir / f"{stem}.jpg"
         if not img_path.exists():
@@ -148,10 +112,13 @@ def scan_split(
         if not img_path.exists():
             continue
 
-        mask = np.array(Image.open(mask_path))
+        # Each pixel value in the mask is a FoodSeg103 category ID (0 = background).
+        with Image.open(mask_path) as image:
+            mask = np.array(image)
         if mask.ndim == 3:
             mask = mask[:, :, 0]
 
+        # Ignore tiny stray pixels below min_pixels so labels stay reliable.
         unique_ids, pixel_counts = np.unique(mask, return_counts=True)
         present_ids = [
             int(cid)
@@ -175,7 +142,7 @@ def project_records(
     selected: list[dict],
     keep_negatives: bool,
 ) -> list[dict]:
-    """Convert raw FoodSeg103 IDs into binary multi-label targets for selected categories."""
+    """Keep the supported food labels for each image."""
     projected: list[dict] = []
     for rec in records:
         present_set = set(rec["foodseg_ids"])
@@ -240,7 +207,7 @@ def main() -> None:
     test_raw, test_counts = scan_split(data_root, "test", min_pixels=args.min_pixels)
     print(f"[audit] Scanned {len(train_raw)} train images and {len(test_raw)} test images")
 
-    # Full 103-category count report
+    # Count how often each food appears.
     full_counts = [
         {
             "foodseg_id": cid,
@@ -260,7 +227,7 @@ def main() -> None:
     if not selected:
         raise RuntimeError("No categories matched. Check category names against class_counts JSON.")
 
-    # Print summary table for selected categories
+    # Show the matches before writing the training files.
     print("\nSelected categories audit:")
     print(f"{'Label':<14} {'FoodSeg103 match':<26} {'Train':>7} {'Test':>7} {'Total':>7}")
     print("-" * 66)
@@ -276,6 +243,7 @@ def main() -> None:
     train_pool = project_records(train_raw, selected, keep_negatives=keep_negatives)
     test_split = project_records(test_raw, selected, keep_negatives=keep_negatives)
 
+    # Reserve validation images from training; leave the test split alone.
     rng = random.Random(args.seed)
     rng.shuffle(train_pool)
     n_val = int(round(len(train_pool) * args.val_ratio))
@@ -290,18 +258,15 @@ def main() -> None:
         "seed": args.seed,
         "categories": selected,
     }
-    (out_dir / f"labels_{args.version}.json").write_text(
-        json.dumps(labels_artifact, indent=2), encoding="utf-8"
-    )
-    (out_dir / f"train_split_{args.version}.json").write_text(
-        json.dumps(train_split, indent=2), encoding="utf-8"
-    )
-    (out_dir / f"val_split_{args.version}.json").write_text(
-        json.dumps(val_split, indent=2), encoding="utf-8"
-    )
-    (out_dir / f"test_split_{args.version}.json").write_text(
-        json.dumps(test_split, indent=2), encoding="utf-8"
-    )
+    artifacts = {
+        "labels": labels_artifact,
+        "train_split": train_split,
+        "val_split": val_split,
+        "test_split": test_split,
+    }
+    for name, content in artifacts.items():
+        path = out_dir / f"{name}_{args.version}.json"
+        path.write_text(json.dumps(content, indent=2), encoding="utf-8")
 
     print(
         f"\n[audit] Saved {args.version} splits to {out_dir}: "

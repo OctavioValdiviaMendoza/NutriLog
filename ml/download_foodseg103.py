@@ -1,19 +1,4 @@
-"""
-ml/download_foodseg103.py
--------------------------
-Downloads FoodSeg103 from Hugging Face (EduardoPacheco/FoodSeg103) and exports
-it into the standard FoodSeg103 directory structure expected by audit_dataset.py:
-
-    ml/data/FoodSeg103/
-    ├── category_id.txt
-    └── Images/
-        ├── img_dir/{train,test}/*.jpg
-        └── ann_dir/{train,test}/*.png
-
-Usage:
-    cd ml
-    python download_foodseg103.py --out data/FoodSeg103
-"""
+"""Download FoodSeg103 and arrange its images and masks for audit_dataset.py."""
 
 from __future__ import annotations
 
@@ -28,6 +13,7 @@ REPO_ID = "EduardoPacheco/FoodSeg103"
 
 
 def export_categories(out_dir: Path) -> None:
+    # Download the ID-to-name map and save it in FoodSeg103's category_id.txt format.
     id2label_path = hf_hub_download(
         repo_id=REPO_ID,
         filename="id2label.json",
@@ -55,6 +41,7 @@ def export_split(dataset_split, out_dir: Path, target_name: str) -> None:
         img_path = img_dir / f"{stem}.jpg"
         ann_path = ann_dir / f"{stem}.png"
 
+        # Skip files that already exist so re-running the script is fast.
         if not img_path.exists():
             row["image"].convert("RGB").save(img_path, format="JPEG", quality=95)
         if not ann_path.exists():
@@ -82,6 +69,7 @@ def main() -> None:
 
     if "train" in ds:
         export_split(ds["train"], out_dir, "train")
+    # Hugging Face names FoodSeg103's held-out test split "validation".
     if "validation" in ds:
         export_split(ds["validation"], out_dir, "test")
     elif "test" in ds:

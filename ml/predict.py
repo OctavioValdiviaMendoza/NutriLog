@@ -1,18 +1,4 @@
-"""
-ml/predict.py
--------------
-Multi-label food image classifier backed by torchvision EfficientNet-B0.
-
-Loads the versioned artifact bundle produced by ml/train.py:
-    - ml/model/weights.pth
-    - ml/model/model_meta.json (label order, per-class thresholds, preprocessing, model_version)
-
-Inference rules:
-    - Uses identical pad-to-square + resize preprocessing as evaluation.
-    - Applies sigmoid independently to each supported category logit.
-    - Returns only categories whose score >= their frozen validation threshold.
-    - An empty list [] is a valid result when no supported food passes threshold.
-"""
+"""Load the saved food model and return predictions above its chosen thresholds."""
 
 from __future__ import annotations
 
@@ -22,27 +8,18 @@ from pathlib import Path
 
 import torch
 from PIL import Image
-from torchvision import models
 
+from categories import DEFAULT_CANDIDATES
+from modeling import build_efficientnet_b0
 from preprocessing import PreprocessingConfig, build_eval_transform
 
 ML_DIR = Path(__file__).parent
 MODEL_PATH = ML_DIR / "model" / "weights.pth"
 META_PATH = ML_DIR / "model" / "model_meta.json"
 
-DEFAULT_CANDIDATE_LABELS: list[dict] = [
-    {"label": "rice", "display": "Rice", "threshold": 0.5},
-    {"label": "bread", "display": "Bread", "threshold": 0.5},
-    {"label": "noodles", "display": "Noodles", "threshold": 0.5},
-    {"label": "potatoes", "display": "Potatoes", "threshold": 0.5},
-    {"label": "broccoli", "display": "Broccoli", "threshold": 0.5},
-    {"label": "carrots", "display": "Carrots", "threshold": 0.5},
-    {"label": "tomatoes", "display": "Tomatoes", "threshold": 0.5},
-    {"label": "lettuce", "display": "Lettuce", "threshold": 0.5},
-    {"label": "eggs", "display": "Eggs", "threshold": 0.5},
-    {"label": "fish", "display": "Fish", "threshold": 0.5},
-    {"label": "steak", "display": "Steak", "threshold": 0.5},
-    {"label": "poultry", "display": "Poultry", "threshold": 0.5},
+DEFAULT_CANDIDATE_LABELS = [
+    {"label": label, "display": label.title(), "threshold": 0.5}
+    for label in DEFAULT_CANDIDATES
 ]
 
 
@@ -54,13 +31,13 @@ class SupportedCategory:
 
 @dataclass(frozen=True)
 class FoodPrediction:
-    label: str        # e.g. "poultry"
-    display: str      # e.g. "Poultry"
-    confidence: float # independent sigmoid score, 0.0 - 1.0
+    label: str
+    display: str
+    confidence: float
 
 
 class FoodClassifier:
-    """Multi-label EfficientNet-B0 classifier loaded once at server startup."""
+    """Load the model once and reuse it for each photo."""
 
     def __init__(self) -> None:
         self._device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -75,15 +52,15 @@ class FoodClassifier:
 
     def _load_bundle(self) -> None:
         if META_PATH.exists() and MODEL_PATH.exists():
+            # Read saved labels, thresholds, and image resize settings.
             meta = json.loads(META_PATH.read_text(encoding="utf-8"))
             self.model_version = str(meta.get("model_version", "foodseg103-effnetb0-v1"))
             self._label_entries = list(meta["labels"])
             self._prep_config = PreprocessingConfig.from_dict(meta.get("preprocessing", {}))
             self._transform = build_eval_transform(self._prep_config)
 
-            model = models.efficientnet_b0(weights=None)
-            in_features = model.classifier[1].in_features
-            model.classifier[1] = torch.nn.Linear(in_features, len(self._label_entries))
+            # Build the same EfficientNet-B0 layout and load the trained weights.
+            model = build_efficientnet_b0(len(self._label_entries), pretrained=False)
             state = torch.load(MODEL_PATH, map_location=self._device, weights_only=True)
             model.load_state_dict(state)
             model.to(self._device)
@@ -110,16 +87,19 @@ class FoodClassifier:
         ]
 
     def predict(self, image: Image.Image) -> list[FoodPrediction]:
-        """Return thresholded multi-label food predictions sorted by confidence."""
+        """Return matching foods, highest confidence first."""
         if not self.model_ready or self._model is None:
             return []
 
+        # Pad and resize the photo the same way we did during evaluation.
         tensor = self._transform(image.convert("RGB")).unsqueeze(0).to(self._device)
 
         with torch.no_grad():
             logits = self._model(tensor)[0]
+            # Sigmoid gives each food an independent 0-1 score so multiple foods can match.
             scores = torch.sigmoid(logits).cpu().tolist()
 
+        # Keep only foods that pass their saved confidence threshold.
         predictions: list[FoodPrediction] = []
         for entry, score in zip(self._label_entries, scores):
             threshold = float(entry.get("threshold", 0.5))

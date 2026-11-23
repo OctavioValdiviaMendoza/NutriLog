@@ -1,15 +1,4 @@
-"""
-ml/preprocessing.py
--------------------
-Shared image preprocessing for training, validation, testing, and production
-inference. Keeping this in one module guarantees identical preprocessing
-between evaluation and deployment.
-
-Key design rule:
-    Resize WITH padding (pad-to-square) instead of center/random cropping.
-    Aggressive cropping can remove a food near the edge of the plate while
-    leaving its label in the multi-label target.
-"""
+"""Prepare images the same way during training, evaluation, and photo recognition."""
 
 from __future__ import annotations
 
@@ -46,7 +35,7 @@ class PreprocessingConfig:
 
 
 class PadToSquare:
-    """Pad a PIL image symmetrically to a square so the entire plate stays visible."""
+    """Add borders instead of cropping foods out of the photo."""
 
     def __init__(self, fill: int | Sequence[int] = 0) -> None:
         self.fill = fill
@@ -63,26 +52,31 @@ class PadToSquare:
         return TF.pad(image, [pad_left, pad_top, pad_right, pad_bottom], fill=self.fill)
 
 
-def build_eval_transform(config: PreprocessingConfig | None = None) -> T.Compose:
-    """Deterministic transform used identically in validation, testing, and inference."""
+def _build_transform(config: PreprocessingConfig | None, training: bool) -> T.Compose:
     cfg = config or PreprocessingConfig()
-    return T.Compose([
+    steps = [
         PadToSquare(fill=cfg.pad_fill),
         T.Resize((cfg.image_size, cfg.image_size)),
+    ]
+    if training:
+        # Vary training photos a little to handle different camera conditions.
+        steps.extend([
+            T.RandomHorizontalFlip(p=0.5),
+            T.RandomRotation(degrees=12, fill=cfg.pad_fill),
+            T.ColorJitter(brightness=0.15, contrast=0.15, saturation=0.15),
+        ])
+    steps.extend([
         T.ToTensor(),
         T.Normalize(mean=cfg.mean, std=cfg.std),
     ])
+    return T.Compose(steps)
+
+
+def build_eval_transform(config: PreprocessingConfig | None = None) -> T.Compose:
+    """Use fixed image settings when checking or serving the model."""
+    return _build_transform(config, training=False)
 
 
 def build_train_transform(config: PreprocessingConfig | None = None) -> T.Compose:
-    """Modest, label-preserving augmentations that keep the whole plate in frame."""
-    cfg = config or PreprocessingConfig()
-    return T.Compose([
-        PadToSquare(fill=cfg.pad_fill),
-        T.Resize((cfg.image_size, cfg.image_size)),
-        T.RandomHorizontalFlip(p=0.5),
-        T.RandomRotation(degrees=12, fill=cfg.pad_fill),
-        T.ColorJitter(brightness=0.15, contrast=0.15, saturation=0.15),
-        T.ToTensor(),
-        T.Normalize(mean=cfg.mean, std=cfg.std),
-    ])
+    """Use the same base settings with small changes for training photos."""
+    return _build_transform(config, training=True)

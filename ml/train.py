@@ -1,27 +1,4 @@
-"""
-ml/train.py
------------
-Multi-label training script for the NutriLog food image classifier.
-
-Architecture:
-    - torchvision EfficientNet-B0 with pretrained ImageNet weights
-    - Final classifier replaced with one independent logit per supported category
-    - Loss: BCEWithLogitsLoss (with optional class pos_weight)
-    - Preprocessing: pad-to-square + resize (shared via ml/preprocessing.py)
-
-Training strategy:
-    1. Train the new classifier head first with the backbone frozen.
-    2. Unfreeze the later EfficientNet-B0 blocks (features[5:]) for fine-tuning.
-    3. Select best checkpoint by validation Macro-F1.
-    4. Tune per-class probability thresholds on the validation set and freeze them.
-    5. Optionally evaluate the frozen model + thresholds on the held-out test split.
-    6. Save weights + versioned metadata (labels, thresholds, preprocessing, metrics).
-
-Usage:
-    cd ml
-    python audit_dataset.py --data data/FoodSeg103 --version v1
-    python train.py --data data/FoodSeg103 --splits data/processed --version v1 --eval-test
-"""
+"""Train the food classifier and save its weights, thresholds, and evaluation results."""
 
 from __future__ import annotations
 
@@ -35,21 +12,17 @@ import torch
 import torch.nn as nn
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset
-from torchvision import models
 
+from metrics import compute_multilabel_metrics, tune_thresholds
+from modeling import build_efficientnet_b0
 from preprocessing import PreprocessingConfig, build_eval_transform, build_train_transform
 
 ML_DIR = Path(__file__).parent
 MODEL_DIR = ML_DIR / "model"
-MODEL_DIR.mkdir(exist_ok=True)
 
-
-# ---------------------------------------------------------------------------
-# Dataset
-# ---------------------------------------------------------------------------
 
 class FoodSegMultiLabelDataset(Dataset):
-    """Loads FoodSeg103 images and binary multi-label targets from an audit split JSON."""
+    """Load an image and mark which supported foods are present."""
 
     def __init__(
         self,
@@ -69,86 +42,14 @@ class FoodSegMultiLabelDataset(Dataset):
 
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
         rec = self.records[idx]
-        image = Image.open(self.data_root / rec["image"]).convert("RGB")
-        tensor = self.transform(image)
+        with Image.open(self.data_root / rec["image"]) as image:
+            tensor = self.transform(image.convert("RGB"))
 
         target = torch.zeros(self.num_classes, dtype=torch.float32)
         for label in rec["labels"]:
             if label in self.label_to_idx:
                 target[self.label_to_idx[label]] = 1.0
         return tensor, target
-
-
-# ---------------------------------------------------------------------------
-# Metrics (Proposal Section 5.1: Per-class Precision, Recall, F1, Macro-F1)
-# ---------------------------------------------------------------------------
-
-def compute_multilabel_metrics(
-    probs: np.ndarray,
-    targets: np.ndarray,
-    thresholds: np.ndarray,
-    label_names: list[str],
-) -> dict:
-    preds = (probs >= thresholds[None, :]).astype(np.int32)
-    targets_int = targets.astype(np.int32)
-
-    per_class: dict[str, dict[str, float]] = {}
-    f1_scores: list[float] = []
-
-    for i, name in enumerate(label_names):
-        tp = int(((preds[:, i] == 1) & (targets_int[:, i] == 1)).sum())
-        fp = int(((preds[:, i] == 1) & (targets_int[:, i] == 0)).sum())
-        fn = int(((preds[:, i] == 0) & (targets_int[:, i] == 1)).sum())
-
-        precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-        recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
-
-        per_class[name] = {
-            "precision": round(precision, 4),
-            "recall": round(recall, 4),
-            "f1": round(f1, 4),
-            "threshold": round(float(thresholds[i]), 3),
-            "support": int(targets_int[:, i].sum()),
-        }
-        f1_scores.append(f1)
-
-    macro_f1 = float(np.mean(f1_scores)) if f1_scores else 0.0
-    return {
-        "macro_f1": round(macro_f1, 4),
-        "per_class": per_class,
-    }
-
-
-def tune_thresholds(
-    probs: np.ndarray,
-    targets: np.ndarray,
-    grid: np.ndarray | None = None,
-) -> np.ndarray:
-    """Choose one probability threshold per class on validation data to maximize F1."""
-    if grid is None:
-        grid = np.linspace(0.20, 0.85, 27)
-    num_classes = probs.shape[1]
-    best_thresholds = np.full(num_classes, 0.5, dtype=np.float32)
-
-    for i in range(num_classes):
-        y_true = targets[:, i].astype(np.int32)
-        best_f1 = -1.0
-        best_t = 0.5
-        for t in grid:
-            y_pred = (probs[:, i] >= t).astype(np.int32)
-            tp = int(((y_pred == 1) & (y_true == 1)).sum())
-            fp = int(((y_pred == 1) & (y_true == 0)).sum())
-            fn = int(((y_pred == 0) & (y_true == 1)).sum())
-            precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-            recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-            f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
-            if f1 > best_f1:
-                best_f1 = f1
-                best_t = float(t)
-        best_thresholds[i] = best_t
-
-    return best_thresholds
 
 
 @torch.no_grad()
@@ -168,19 +69,8 @@ def collect_predictions(
     return np.concatenate(all_probs, axis=0), np.concatenate(all_targets, axis=0)
 
 
-# ---------------------------------------------------------------------------
-# Model builder
-# ---------------------------------------------------------------------------
-
-def build_efficientnet_b0(num_classes: int, pretrained: bool = True) -> nn.Module:
-    weights = models.EfficientNet_B0_Weights.DEFAULT if pretrained else None
-    model = models.efficientnet_b0(weights=weights)
-    in_features = model.classifier[1].in_features
-    model.classifier[1] = nn.Linear(in_features, num_classes)
-    return model
-
-
 def compute_pos_weight(records: list[dict], label_to_idx: dict[str, int], max_weight: float = 10.0) -> torch.Tensor:
+    """Give rarer foods a higher weight so the model does not ignore them."""
     counts = np.zeros(len(label_to_idx), dtype=np.float32)
     for rec in records:
         for label in rec["labels"]:
@@ -193,15 +83,13 @@ def compute_pos_weight(records: list[dict], label_to_idx: dict[str, int], max_we
     return torch.tensor(weights, dtype=torch.float32)
 
 
-# ---------------------------------------------------------------------------
-# Main training pipeline
-# ---------------------------------------------------------------------------
-
 def train(args: argparse.Namespace) -> None:
+    MODEL_DIR.mkdir(exist_ok=True)
     data_root = Path(args.data)
     splits_dir = Path(args.splits)
     ver = args.version
 
+    # 1. Load the label list and split files created by audit_dataset.py.
     labels_path = splits_dir / f"labels_{ver}.json"
     train_path = splits_dir / f"train_split_{ver}.json"
     val_path = splits_dir / f"val_split_{ver}.json"
@@ -223,6 +111,7 @@ def train(args: argparse.Namespace) -> None:
     train_records = json.loads(train_path.read_text(encoding="utf-8"))
     val_records = json.loads(val_path.read_text(encoding="utf-8"))
 
+    # 2. Wrap the splits in PyTorch datasets and loaders.
     prep_cfg = PreprocessingConfig(image_size=args.image_size)
     train_ds = FoodSegMultiLabelDataset(data_root, train_records, label_to_idx, build_train_transform(prep_cfg))
     val_ds = FoodSegMultiLabelDataset(data_root, val_records, label_to_idx, build_eval_transform(prep_cfg))
@@ -245,9 +134,8 @@ def train(args: argparse.Namespace) -> None:
         pin_memory=device.type == "cuda",
     )
 
+    # 3. Build EfficientNet-B0 and freeze the image backbone for warm-up epochs.
     model = build_efficientnet_b0(num_classes=num_classes, pretrained=True).to(device)
-
-    # Stage 1: freeze backbone, train classifier head only
     for param in model.features.parameters():
         param.requires_grad = False
 
@@ -259,10 +147,12 @@ def train(args: argparse.Namespace) -> None:
     best_val_f1 = -1.0
     weights_path = MODEL_DIR / "weights.pth"
 
+    # 4. Train head first, then unfreeze later backbone layers and save best weights.
     total_epochs = args.head_epochs + args.finetune_epochs
     for epoch in range(1, total_epochs + 1):
         if epoch == args.head_epochs + 1 and args.finetune_epochs > 0:
             print("[train] Unfreezing later EfficientNet-B0 backbone blocks (features[5:]) for fine-tuning...")
+            # Now let the later image layers learn from our food photos too.
             for block in model.features[5:]:
                 for param in block.parameters():
                     param.requires_grad = True
@@ -297,13 +187,14 @@ def train(args: argparse.Namespace) -> None:
             torch.save(model.state_dict(), weights_path)
             print(f"[train] New best val Macro-F1 ({best_val_f1:.4f}) -> saved {weights_path}")
 
-    # Load best checkpoint and tune per-class thresholds on validation set
+    # Choose food thresholds using validation images, not test images.
     model.load_state_dict(torch.load(weights_path, map_location=device, weights_only=True))
     val_probs, val_targets = collect_predictions(model, val_loader, device)
     tuned_thresholds = tune_thresholds(val_probs, val_targets)
     val_tuned_metrics = compute_multilabel_metrics(val_probs, val_targets, tuned_thresholds, label_names)
     print(f"[train] Validation Macro-F1 after threshold tuning: {val_tuned_metrics['macro_f1']:.4f}")
 
+    # Test the chosen model without adjusting its weights or thresholds.
     test_metrics = None
     if args.eval_test and test_path.exists():
         test_records = json.loads(test_path.read_text(encoding="utf-8"))
@@ -313,7 +204,7 @@ def train(args: argparse.Namespace) -> None:
         test_metrics = compute_multilabel_metrics(test_probs, test_targets, tuned_thresholds, label_names)
         print(f"[train] Held-out Test Macro-F1 (frozen thresholds): {test_metrics['macro_f1']:.4f}")
 
-    # Save versioned model metadata alongside weights.pth
+    # Save the settings needed to use these weights later.
     model_version = f"foodseg103-effnetb0-{ver}"
     meta = {
         "model_version": model_version,

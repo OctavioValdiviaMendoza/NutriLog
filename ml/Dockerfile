@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install PyTorch CPU-only build (much smaller; swap for CUDA if you have a GPU)
+# Use CPU packages for the hosted service.
 RUN pip install --no-cache-dir torch torchvision \
     --index-url https://download.pytorch.org/whl/cpu
 
@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# model/ directory is volume-mounted at runtime; create it so the image starts
+# Saved weights are mounted here when the container starts.
 RUN mkdir -p model
 
 EXPOSE 8001

@@ -242,7 +242,7 @@ Do not use `docker compose down -v` unless intentionally deleting the PostgreSQL
 
 ## 12. Known Limitations
 
-- Photo-assisted food recognition remains outside the verified MVP.
+- The meal logger includes a Photo preview with a live camera, device-camera fallback, and gallery selection. Photos stay in the browser; recognition, uploads, and saving a meal from a photo are not connected yet. Live camera access requires HTTPS or localhost and browser permission. HEIC previews depend on browser support; JPEG, PNG, and WebP are supported.
 - Meal recommendations and social features are not part of the current tested backend.
 - The TDEE endpoint calculates estimated daily energy expenditure but is not yet integrated into automatic onboarding target recommendations.
 - Frontend meal editing and deletion controls are available on the dashboard and should be included in the manual demo flow.

@@ -14,6 +14,7 @@ import {
   updateRecipe,
 } from "@/lib/api";
 import AppShell from "@/components/AppShell";
+import PhotoMealCapture, { type MealPhotoDraft } from "@/components/PhotoMealCapture";
 import FoodSearchPicker, {
   basisLabel,
   type FoodSelection,
@@ -30,7 +31,7 @@ function getLocalDate(): string {
   return `${year}-${month}-${day}`;
 }
 
-type Mode = "usda" | "manual" | "recipes";
+type Mode = "usda" | "manual" | "recipes" | "photo";
 type Ingredient = {
   food_name: string;
   quantity: number;
@@ -65,6 +66,7 @@ function NewMealContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [mode, setMode] = useState<Mode>("usda");
+  const [photo, setPhoto] = useState<MealPhotoDraft | null>(null);
   const [query, setQuery] = useState("");
   const [foods, setFoods] = useState<FoodSearchResult[]>([]);
   const [usdaSelection, setUsdaSelection] = useState<FoodSelection | null>(
@@ -103,18 +105,19 @@ function NewMealContent() {
     fat_g: "",
   });
 
+  // Keep the preview across logging-method switches; release it on replacement or navigation.
+  useEffect(() => {
+    return () => {
+      if (photo) URL.revokeObjectURL(photo.previewUrl);
+    };
+  }, [photo]);
+
   useEffect(() => {
     getCurrentUser()
       .then(() => {
         const queryDate = searchParams.get("date");
         const queryMode = searchParams.get("mode");
-        setMode(
-          queryMode === "recipes"
-            ? "recipes"
-            : queryMode === "manual"
-              ? "manual"
-              : "usda",
-        );
+        setMode(queryMode === "recipes" || queryMode === "manual" || queryMode === "photo" ? queryMode : "usda");
         setLoggedDate(queryDate ?? getLocalDate());
       })
       .catch(() => router.replace("/login"));
@@ -275,7 +278,7 @@ function NewMealContent() {
   }
 
   async function logSelectedMeal() {
-    if (savingMeal) return;
+    if (savingMeal || (mode !== "usda" && mode !== "manual")) return;
     if (mode === "usda") {
       if (
         !usdaSelection ||
@@ -414,16 +417,17 @@ function NewMealContent() {
           </button>
           <h1 className="text-3xl font-bold text-green-950">Log a meal</h1>
           <p className="mt-2 text-gray-600">
-            Choose a USDA food, enter nutrition manually, or use one of your
-            saved recipes.
+            Search USDA foods, enter nutrition, use a saved recipe, or try the
+            photo preview.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            {(["usda", "manual", "recipes"] as Mode[]).map((item) => (
+            {(["usda", "manual", "recipes", "photo"] as Mode[]).map((item) => (
               <button
                 type="button"
                 key={item}
                 onClick={() => {
                   setMode(item);
+                  setMessage("");
                   setUsdaSelection(null);
                   setFoods([]);
                   const params = new URLSearchParams(searchParams.toString());
@@ -433,18 +437,21 @@ function NewMealContent() {
                     scroll: false,
                   });
                 }}
-                className={`rounded-full px-4 py-2 capitalize ${mode === item ? "bg-green-700 text-white" : "bg-gray-100"}`}
+                aria-pressed={mode === item}
+                className={`min-h-11 rounded-full px-4 py-2 capitalize ${mode === item ? "bg-green-700 text-white" : "bg-gray-100"}`}
               >
                 {item === "usda"
                   ? "USDA search"
                   : item === "manual"
                     ? "Manual entry"
-                    : "Recipes"}
+                    : item === "photo"
+                      ? "Photo"
+                      : "Recipes"}
               </button>
             ))}
           </div>
           <div
-            className={`mt-6 grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 ${mode === "usda" ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}
+            className={`mt-6 grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 ${mode === "usda" || mode === "photo" ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}
           >
             <label className="text-sm font-medium">
               Meal type
@@ -462,7 +469,7 @@ function NewMealContent() {
                 )}
               </select>
             </label>
-            {mode !== "usda" && (
+            {(mode === "manual" || mode === "recipes") && (
               <label className="text-sm font-medium">
                 {mode === "recipes" ? "Recipe servings" : "Quantity"}
                 <input
@@ -485,6 +492,7 @@ function NewMealContent() {
               />
             </label>
           </div>
+          {mode === "photo" && <PhotoMealCapture photo={photo} onChange={setPhoto} />}
           {mode === "usda" && (
             <>
               <FoodSearchPicker

@@ -1,10 +1,10 @@
-
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import AppShell from "@/components/AppShell";
+import NutritionSuggestions from "@/components/NutritionSuggestions";
 import { getCurrentUser, getProfile, saveProfile } from "@/lib/api";
 import type { ApiError, ProfileGoals } from "@/lib/types";
 
@@ -54,7 +54,7 @@ export default function SettingsPage() {
           setError(
             reason instanceof Error
               ? reason.message
-              : "Unable to load your profile."
+              : "Unable to load your profile.",
           );
         }
       } finally {
@@ -71,10 +71,10 @@ export default function SettingsPage() {
 
   function updateField<K extends keyof ProfileGoals>(
     field: K,
-    value: ProfileGoals[K]
+    value: ProfileGoals[K],
   ) {
     setProfile((current) =>
-      current ? { ...current, [field]: value } : current
+      current ? { ...current, [field]: value } : current,
     );
     setSuccess("");
   }
@@ -95,7 +95,7 @@ export default function SettingsPage() {
       setError(
         reason instanceof Error
           ? reason.message
-          : "Unable to save your settings."
+          : "Unable to save your settings.",
       );
     } finally {
       setSaving(false);
@@ -161,7 +161,7 @@ export default function SettingsPage() {
                     onChange={(event) =>
                       updateField(
                         "gender",
-                        event.target.value as ProfileGoals["gender"]
+                        event.target.value as ProfileGoals["gender"],
                       )
                     }
                     className={inputClass}
@@ -194,7 +194,7 @@ export default function SettingsPage() {
                     onChange={(event) =>
                       updateField(
                         "activity_level",
-                        event.target.value as ProfileGoals["activity_level"]
+                        event.target.value as ProfileGoals["activity_level"],
                       )
                     }
                     className={inputClass}
@@ -240,9 +240,33 @@ export default function SettingsPage() {
             </section>
 
             <section className="rounded-2xl bg-white p-6 shadow-sm">
-              <h2 className="mb-5 text-xl font-semibold">
-                Nutrition goals
-              </h2>
+              <h2 className="mb-5 text-xl font-semibold">Nutrition goals</h2>
+
+              <NutritionSuggestions
+                person={{
+                  age: profile.age,
+                  gender: profile.gender,
+                  activity_level: profile.activity_level,
+                  weight_lbs: profile.weight_lbs,
+                  height_feet: profile.height_feet,
+                  height_inches: profile.height_inches,
+                }}
+                goal={profile.goal}
+                pace={profile.goal_pace}
+                targets={{
+                  calorie_target: profile.calorie_target,
+                  protein_target: profile.protein_target,
+                  carb_target: profile.carb_target,
+                  fat_target: profile.fat_target,
+                }}
+                disabled={saving}
+                onApply={(targets) => {
+                  setProfile((current) =>
+                    current ? { ...current, ...targets } : current,
+                  );
+                  setSuccess("");
+                }}
+              />
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <label>
@@ -250,13 +274,13 @@ export default function SettingsPage() {
                   <select
                     value={profile.goal}
                     onChange={(event) => {
-                      const nextGoal =
-                        event.target.value as ProfileGoals["goal"];
+                      const nextGoal = event.target
+                        .value as ProfileGoals["goal"];
 
                       setProfile((current) =>
                         current
                           ? { ...current, goal: nextGoal, goal_pace: undefined }
-                          : current
+                          : current,
                       );
                       setSuccess("");
                     }}
@@ -271,7 +295,7 @@ export default function SettingsPage() {
                 </label>
 
                 {["lose-weight", "gain-weight", "build-muscle"].includes(
-                  profile.goal
+                  profile.goal,
                 ) && (
                   <label>
                     Goal pace
@@ -282,7 +306,7 @@ export default function SettingsPage() {
                           "goal_pace",
                           event.target.value
                             ? (event.target.value as ProfileGoals["goal_pace"])
-                            : undefined
+                            : undefined,
                         )
                       }
                       className={inputClass}

@@ -27,6 +27,26 @@ export type ProfileGoals = {
 
 export type MealType = "breakfast" | "lunch" | "dinner" | "snack" | "other";
 
+export type NutritionTargets = Pick<ProfileGoals, "calorie_target" | "protein_target" | "carb_target" | "fat_target">;
+export type RecommendationPerson = Pick<ProfileGoals, "age" | "gender" | "activity_level" | "weight_lbs" | "height_feet" | "height_inches">;
+export type RecommendationRequest = RecommendationPerson & {
+  goal: ProfileGoals["goal"];
+  goal_pace?: ProfileGoals["goal_pace"];
+  eligibility: "general_adult" | "pregnant_or_breastfeeding" | "clinician_guidance" | "unsure";
+  current_targets: Partial<NutritionTargets>;
+};
+export type NutritionRecommendation = {
+  policy_version: string;
+  bmr: number;
+  tdee: number;
+  calorie_adjustment: number;
+  weight_kg: number;
+  eligible: boolean;
+  recommended: NutritionTargets | null;
+  suggestions: { [K in keyof NutritionTargets]: number | null };
+  messages: string[];
+};
+
 export type Meal = {
   id: number;
   meal_type: MealType;

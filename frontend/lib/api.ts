@@ -1,4 +1,5 @@
 import type { ApiError, DailySummary, FoodSearchResult, Meal, MealUpdate, ProfileGoals, Recipe, User } from "./types";
+import type { NutritionRecommendation, RecommendationRequest } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -127,6 +128,12 @@ export function calculateTdee(
 
 export function getProfile() {
   return apiRequest<ProfileGoals>("/profile");
+}
+
+export function getNutritionRecommendations(payload: RecommendationRequest, options: RequestInit = {}) {
+  return apiRequest<NutritionRecommendation>("/calculations/recommendations", {
+    ...options, method: "POST", body: JSON.stringify(payload),
+  });
 }
 
 

@@ -16,3 +16,11 @@ class BMRResponse(BaseModel):
     bmr: int
     calories_per_day: int
 
+class TDEERequest(BMRRequest):
+    pass
+
+
+class TDEEResponse(BaseModel):
+    bmr: int
+    activity_multiplier: float
+    tdee: int

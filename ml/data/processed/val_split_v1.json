@@ -1,0 +1,4661 @@
+[
+  {
+    "image": "Images/img_dir/train/223.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2252.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4252.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/487.jpg",
+    "labels": [
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/118.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1780.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2020.jpg",
+    "labels": [
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1717.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3713.jpg",
+    "labels": [
+      "broccoli",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/473.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3948.jpg",
+    "labels": [
+      "rice",
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/217.jpg",
+    "labels": [
+      "rice",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1373.jpg",
+    "labels": [
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4024.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3702.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1494.jpg",
+    "labels": [
+      "noodles",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2487.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2773.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3927.jpg",
+    "labels": [
+      "tomatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2649.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1602.jpg",
+    "labels": [
+      "bread",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4895.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/639.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4327.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3828.jpg",
+    "labels": [
+      "bread",
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1957.jpg",
+    "labels": [
+      "broccoli",
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4839.jpg",
+    "labels": [
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4333.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/58.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2663.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3458.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/281.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1010.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3894.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2240.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1965.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/236.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/922.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1694.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/483.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3824.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3473.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/343.jpg",
+    "labels": [
+      "carrots",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1820.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2998.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4247.jpg",
+    "labels": [
+      "potatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1013.jpg",
+    "labels": [
+      "bread",
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1878.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/366.jpg",
+    "labels": [
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3830.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/173.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4081.jpg",
+    "labels": [
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/377.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4834.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1746.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4021.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4854.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/970.jpg",
+    "labels": [
+      "bread",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1197.jpg",
+    "labels": [
+      "broccoli",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2528.jpg",
+    "labels": [
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3552.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1605.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4806.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2419.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4289.jpg",
+    "labels": [
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4956.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2706.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3303.jpg",
+    "labels": [
+      "noodles",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/237.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2012.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2881.jpg",
+    "labels": [
+      "rice",
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4773.jpg",
+    "labels": [
+      "rice",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4454.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/116.jpg",
+    "labels": [
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4966.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4576.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2895.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4155.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3260.jpg",
+    "labels": [
+      "bread",
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4819.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2804.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3379.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2606.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4302.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2505.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3480.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4122.jpg",
+    "labels": [
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3817.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1665.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1528.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/541.jpg",
+    "labels": [
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2047.jpg",
+    "labels": [
+      "broccoli",
+      "tomatoes",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3347.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3170.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/254.jpg",
+    "labels": [
+      "rice",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3544.jpg",
+    "labels": [
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2535.jpg",
+    "labels": [
+      "eggs",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1438.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1531.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4404.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/29.jpg",
+    "labels": [
+      "bread",
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1828.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/894.jpg",
+    "labels": [
+      "potatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/276.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1969.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1387.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4630.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4506.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1211.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3495.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2440.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2116.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1347.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3372.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2053.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4473.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1265.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1228.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3514.jpg",
+    "labels": [
+      "bread",
+      "carrots",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4829.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1137.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/78.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2288.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4935.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/962.jpg",
+    "labels": [
+      "rice",
+      "tomatoes",
+      "lettuce",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1785.jpg",
+    "labels": [
+      "bread",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1146.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/456.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2282.jpg",
+    "labels": [
+      "tomatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4474.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4020.jpg",
+    "labels": [
+      "broccoli",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/390.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4264.jpg",
+    "labels": [
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2786.jpg",
+    "labels": [
+      "bread",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2018.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4226.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2219.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4814.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2015.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3615.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4254.jpg",
+    "labels": [
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4676.jpg",
+    "labels": [
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1628.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3633.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3190.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2483.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4970.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3217.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2418.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3467.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3044.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2476.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2493.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1533.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1487.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4190.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1920.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/904.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1642.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1985.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2947.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3716.jpg",
+    "labels": [
+      "rice",
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/234.jpg",
+    "labels": [
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/900.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4844.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4184.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2900.jpg",
+    "labels": [
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3487.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1359.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4329.jpg",
+    "labels": [
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1264.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3214.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3350.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2971.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3446.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3640.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4299.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1808.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1144.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4172.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1323.jpg",
+    "labels": [
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4287.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/0.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3254.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1821.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3923.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3243.jpg",
+    "labels": [
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2817.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3003.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2370.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4699.jpg",
+    "labels": [
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/360.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1526.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3709.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2074.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4784.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2891.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4011.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/511.jpg",
+    "labels": [
+      "bread",
+      "noodles",
+      "carrots",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1129.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2964.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1102.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4824.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3171.jpg",
+    "labels": [
+      "rice",
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/266.jpg",
+    "labels": [
+      "carrots",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3754.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1440.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2788.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2467.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1223.jpg",
+    "labels": [
+      "bread",
+      "noodles",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4551.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1061.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2735.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1052.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2490.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4132.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1423.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/727.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1035.jpg",
+    "labels": [
+      "bread",
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1995.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/369.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2231.jpg",
+    "labels": [
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/982.jpg",
+    "labels": [
+      "noodles",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1331.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1960.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/902.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4173.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/478.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2486.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1835.jpg",
+    "labels": [
+      "noodles",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3614.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2811.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4792.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/645.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4720.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4337.jpg",
+    "labels": [
+      "bread",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3736.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4888.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1077.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3914.jpg",
+    "labels": [
+      "bread",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2488.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4730.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2882.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4693.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1716.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4950.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1950.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4954.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1801.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2000.jpg",
+    "labels": [
+      "bread",
+      "noodles",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3931.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3989.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/408.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3454.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/539.jpg",
+    "labels": [
+      "bread",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/332.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3330.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/260.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1117.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1026.jpg",
+    "labels": [
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/488.jpg",
+    "labels": [
+      "bread",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/120.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3015.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4256.jpg",
+    "labels": [
+      "eggs",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4297.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4182.jpg",
+    "labels": [
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/139.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3087.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1262.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1990.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4771.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2924.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2969.jpg",
+    "labels": [
+      "rice",
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1336.jpg",
+    "labels": [
+      "rice",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3897.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1422.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1024.jpg",
+    "labels": [
+      "noodles",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2566.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3427.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1641.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/687.jpg",
+    "labels": [
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3395.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3180.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4103.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/621.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2006.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1573.jpg",
+    "labels": [
+      "broccoli",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3001.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1726.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2477.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2078.jpg",
+    "labels": [
+      "bread",
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/104.jpg",
+    "labels": [
+      "tomatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2526.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4084.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1300.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/177.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2864.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3882.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "eggs",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3252.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/943.jpg",
+    "labels": [
+      "noodles",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3465.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1565.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3790.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1865.jpg",
+    "labels": [
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3953.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3672.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1351.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1654.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes",
+      "steak",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4445.jpg",
+    "labels": [
+      "noodles",
+      "lettuce",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3969.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3022.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/726.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/896.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1696.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/475.jpg",
+    "labels": [
+      "carrots",
+      "lettuce",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3680.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/608.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1620.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4263.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2613.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/434.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3078.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1261.jpg",
+    "labels": [
+      "bread",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1048.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4536.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4374.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/349.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4461.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2616.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3318.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1915.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2410.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1680.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2060.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2031.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1638.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2807.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2958.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1961.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2037.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/459.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3794.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2870.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1089.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3596.jpg",
+    "labels": [
+      "noodles",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3479.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/150.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2072.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "carrots",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4232.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3863.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3277.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2075.jpg",
+    "labels": [
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1823.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/203.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2770.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2235.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4878.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1382.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/833.jpg",
+    "labels": [
+      "bread",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3430.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2742.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3250.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/946.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/866.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2033.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3257.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3929.jpg",
+    "labels": [
+      "bread",
+      "broccoli",
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4303.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1068.jpg",
+    "labels": [
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/898.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4104.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1666.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2038.jpg",
+    "labels": [
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3920.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3700.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/56.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3810.jpg",
+    "labels": [
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4667.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4414.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/736.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1006.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3785.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1745.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3875.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3670.jpg",
+    "labels": [
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4490.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2261.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4556.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3502.jpg",
+    "labels": [
+      "bread",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1862.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3020.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1748.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3694.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1922.jpg",
+    "labels": [
+      "noodles",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1325.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1648.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2525.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3641.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2258.jpg",
+    "labels": [
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1386.jpg",
+    "labels": [
+      "rice",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4718.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/817.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3305.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1582.jpg",
+    "labels": [
+      "bread",
+      "broccoli",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4721.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3642.jpg",
+    "labels": [
+      "bread",
+      "noodles",
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3485.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4522.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3207.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1073.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1084.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4479.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/283.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4727.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3442.jpg",
+    "labels": [
+      "bread",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1655.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4811.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4566.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2099.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1239.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/929.jpg",
+    "labels": [
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4762.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3131.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/197.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3227.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/63.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2256.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2579.jpg",
+    "labels": [
+      "rice",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4849.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/431.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3775.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3607.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4025.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/926.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1044.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4099.jpg",
+    "labels": [
+      "noodles",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/88.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3449.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1838.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4307.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3223.jpg",
+    "labels": [
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/930.jpg",
+    "labels": [
+      "bread",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1286.jpg",
+    "labels": [
+      "rice",
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/93.jpg",
+    "labels": [
+      "bread",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3425.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1635.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1085.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1968.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3512.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3419.jpg",
+    "labels": [
+      "carrots",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2458.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/753.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4229.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2534.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3470.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/27.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2090.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/94.jpg",
+    "labels": [
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1174.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2556.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/180.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/705.jpg",
+    "labels": [
+      "bread",
+      "potatoes",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1978.jpg",
+    "labels": [
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3868.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4969.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/515.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2451.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1711.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/395.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/573.jpg",
+    "labels": [
+      "noodles",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4558.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4653.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4435.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/135.jpg",
+    "labels": [
+      "bread",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/406.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1075.jpg",
+    "labels": [
+      "bread",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1690.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4218.jpg",
+    "labels": [
+      "noodles",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1786.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3192.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2821.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4239.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4418.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/311.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1767.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2264.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/235.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/181.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3043.jpg",
+    "labels": [
+      "eggs",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1034.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4387.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "fish",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3033.jpg",
+    "labels": [
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4684.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2647.jpg",
+    "labels": [
+      "bread",
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/364.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1063.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3627.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3590.jpg",
+    "labels": [
+      "rice",
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/590.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4339.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/230.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/643.jpg",
+    "labels": [
+      "tomatoes",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/716.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2428.jpg",
+    "labels": [
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/735.jpg",
+    "labels": [
+      "tomatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3263.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2494.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2934.jpg",
+    "labels": [
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3273.jpg",
+    "labels": [
+      "bread",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/242.jpg",
+    "labels": [
+      "potatoes",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/420.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4439.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3738.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2336.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2624.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1432.jpg",
+    "labels": [
+      "tomatoes",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/446.jpg",
+    "labels": [
+      "bread",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1766.jpg",
+    "labels": [
+      "bread",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1430.jpg",
+    "labels": [
+      "carrots",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/781.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2076.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/712.jpg",
+    "labels": [
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1237.jpg",
+    "labels": [
+      "bread",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4424.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4219.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1385.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4332.jpg",
+    "labels": [
+      "potatoes",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/79.jpg",
+    "labels": [
+      "bread",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2754.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3095.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/521.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/607.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2975.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2022.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3624.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3115.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3699.jpg",
+    "labels": [
+      "bread",
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4736.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4233.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3239.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2567.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4292.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4941.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4662.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3129.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3937.jpg",
+    "labels": [
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3285.jpg",
+    "labels": [
+      "bread",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/103.jpg",
+    "labels": [
+      "tomatoes",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/911.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/401.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3729.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4378.jpg",
+    "labels": [
+      "carrots",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3534.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3906.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2837.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1126.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/168.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4666.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/828.jpg",
+    "labels": [
+      "bread",
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/450.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2329.jpg",
+    "labels": [
+      "rice",
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2552.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2130.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4965.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/34.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/176.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4434.jpg",
+    "labels": [
+      "bread",
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1252.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3445.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1056.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4451.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2625.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1272.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2531.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3441.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3885.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1003.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1091.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4197.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1478.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2794.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4746.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3236.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2886.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4437.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4031.jpg",
+    "labels": [
+      "noodles",
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3711.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3997.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2718.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2207.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3689.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2904.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1004.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/663.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2194.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2341.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2581.jpg",
+    "labels": [
+      "potatoes",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2312.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4505.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3153.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4537.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3682.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1796.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/760.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2781.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1623.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2590.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/806.jpg",
+    "labels": [
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4707.jpg",
+    "labels": [
+      "noodles",
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/779.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1933.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1080.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/195.jpg",
+    "labels": [
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1148.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4885.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3654.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4916.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3018.jpg",
+    "labels": [
+      "bread",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2444.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3378.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2818.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1913.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/800.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/174.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "eggs",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2042.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1772.jpg",
+    "labels": [
+      "noodles",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4594.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2202.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4399.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/867.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2594.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4779.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4783.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2596.jpg",
+    "labels": [
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1043.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2145.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2548.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/677.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2589.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4067.jpg",
+    "labels": [
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4140.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2510.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/686.jpg",
+    "labels": [
+      "potatoes",
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1521.jpg",
+    "labels": [
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/949.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3000.jpg",
+    "labels": [
+      "rice",
+      "lettuce",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4406.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1464.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3493.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/984.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1143.jpg",
+    "labels": [
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3673.jpg",
+    "labels": [
+      "rice",
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1935.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2383.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4982.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2103.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2914.jpg",
+    "labels": [
+      "bread",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/9.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2653.jpg",
+    "labels": [
+      "fish"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4121.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3930.jpg",
+    "labels": [
+      "noodles",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4701.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1555.jpg",
+    "labels": [
+      "rice"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/495.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4224.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3097.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1405.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3872.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3662.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/247.jpg",
+    "labels": [
+      "potatoes",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/548.jpg",
+    "labels": [
+      "broccoli",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1979.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2933.jpg",
+    "labels": [
+      "noodles"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2049.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/591.jpg",
+    "labels": [
+      "rice",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3938.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3580.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/352.jpg",
+    "labels": [
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3292.jpg",
+    "labels": [
+      "noodles",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3156.jpg",
+    "labels": [
+      "rice",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1750.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1752.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2496.jpg",
+    "labels": [
+      "bread",
+      "potatoes",
+      "broccoli",
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1894.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1966.jpg",
+    "labels": [
+      "noodles",
+      "potatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4940.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/576.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3947.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4601.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2645.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1649.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2111.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2903.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4803.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4455.jpg",
+    "labels": [
+      "noodles",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3631.jpg",
+    "labels": [
+      "bread",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2810.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2112.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1350.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4933.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4376.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/810.jpg",
+    "labels": [
+      "bread",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3396.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes",
+      "lettuce",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4142.jpg",
+    "labels": [
+      "carrots",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2771.jpg",
+    "labels": [
+      "rice",
+      "carrots",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/444.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1095.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4409.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2722.jpg",
+    "labels": [
+      "bread",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/154.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes",
+      "lettuce"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2978.jpg",
+    "labels": [
+      "carrots",
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3335.jpg",
+    "labels": [
+      "noodles",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4249.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3703.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1926.jpg",
+    "labels": [
+      "potatoes",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2349.jpg",
+    "labels": [
+      "noodles",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2394.jpg",
+    "labels": [
+      "potatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1539.jpg",
+    "labels": [
+      "carrots",
+      "lettuce",
+      "eggs",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4259.jpg",
+    "labels": [
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3042.jpg",
+    "labels": [
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3535.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/142.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/2021.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3791.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3901.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3538.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4238.jpg",
+    "labels": [
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/3603.jpg",
+    "labels": [
+      "rice",
+      "tomatoes",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4480.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1741.jpg",
+    "labels": [
+      "tomatoes"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4589.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/4093.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1235.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3387.jpg",
+    "labels": [
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1909.jpg",
+    "labels": [
+      "potatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1576.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1183.jpg",
+    "labels": [
+      "noodles",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1399.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/1627.jpg",
+    "labels": [
+      "potatoes",
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/966.jpg",
+    "labels": [
+      "carrots"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/748.jpg",
+    "labels": [
+      "eggs"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1036.jpg",
+    "labels": []
+  },
+  {
+    "image": "Images/img_dir/train/3925.jpg",
+    "labels": [
+      "rice",
+      "bread"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/1175.jpg",
+    "labels": [
+      "rice",
+      "poultry"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/4382.jpg",
+    "labels": [
+      "noodles",
+      "tomatoes",
+      "steak"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2577.jpg",
+    "labels": [
+      "potatoes",
+      "broccoli"
+    ]
+  },
+  {
+    "image": "Images/img_dir/train/2275.jpg",
+    "labels": [
+      "potatoes",
+      "fish"
+    ]
+  }
+]

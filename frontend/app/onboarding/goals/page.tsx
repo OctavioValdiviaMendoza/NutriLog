@@ -2,6 +2,9 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { calculateTdee, getCurrentUser, saveProfile } from "@/lib/api";
+import type { ProfileGoals } from "@/lib/types";
+import NutritionSuggestions from "@/components/NutritionSuggestions";
 
 export default function GoalsPage() {
   const router = useRouter();
@@ -15,8 +18,18 @@ export default function GoalsPage() {
   const [goalPace, setGoalPace] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bmr, setBmr] = useState<number | null>(null);
-  const [bmrLoading, setBmrLoading] = useState(false);
-  const [bmrError, setBmrError] = useState("");
+  const [tdee, setTdee] = useState<number | null>(null);
+  const [calculationLoading, setCalculationLoading] = useState(false);
+  const [calculationError, setCalculationError] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [calorieTarget, setCalorieTarget] = useState("");
+  const [proteinTarget, setProteinTarget] = useState("");
+  const [carbTarget, setCarbTarget] = useState("");
+  const [fatTarget, setFatTarget] = useState("");
+
+  useEffect(() => {
+    getCurrentUser().catch(() => router.replace("/login"));
+  }, [router]);
 
   const weightLbs = Number(weight);
   const heightFeetValue = Number(heightFeet);
@@ -27,10 +40,13 @@ export default function GoalsPage() {
     age >= 1 &&
     age <= 120 &&
     ["sedentary", "light", "moderate", "very-active"].includes(activityLevel) &&
+    Number.isFinite(weightLbs) &&
     weightLbs > 0 &&
-      heightFeet !== "" &&
+    weightLbs <= 1000 &&
+    heightFeet !== "" &&
     heightFeetValue >= 1 &&
-      heightInches !== "" &&
+    heightFeetValue <= 8 &&
+    heightInches !== "" &&
     heightInchesValue >= 0 &&
     heightInchesValue <= 11;
 
@@ -41,56 +57,45 @@ export default function GoalsPage() {
 
     const controller = new AbortController();
 
-    async function calculateBmr() {
-      setBmrLoading(true);
-      setBmrError("");
+    async function calculateEnergy() {
+      setCalculationLoading(true);
+      setCalculationError("");
 
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"}/calculations/bmr`,
+        const data = await calculateTdee(
           {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            signal: controller.signal,
-            body: JSON.stringify({
-              gender,
-              age,
-              activity_level: activityLevel,
-              weight_lbs: weightLbs,
-              height_feet: heightFeetValue,
-              height_inches: heightInchesValue,
-            }),
+            gender: gender as "male" | "female",
+            age: age as number,
+            activity_level: activityLevel as ProfileGoals["activity_level"],
+            weight_lbs: weightLbs,
+            height_feet: heightFeetValue,
+            height_inches: heightInchesValue,
           },
+          { signal: controller.signal },
         );
 
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            typeof data.detail === "string"
-              ? data.detail
-              : "Unable to calculate BMR.",
-          );
+        if (!controller.signal.aborted) {
+          setBmr(data.bmr);
+          setTdee(data.tdee);
         }
-
-        setBmr(data.bmr);
       } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") {
-          return;
-        }
+        if (controller.signal.aborted) return;
 
-        setBmrError(
-          error instanceof Error ? error.message : "Unable to calculate BMR.",
+        setCalculationError(
+          error instanceof Error
+            ? error.message
+            : "Unable to calculate energy expenditure.",
         );
         setBmr(null);
+        setTdee(null);
       } finally {
         if (!controller.signal.aborted) {
-          setBmrLoading(false);
+          setCalculationLoading(false);
         }
       }
     }
 
-    calculateBmr();
+    void calculateEnergy();
 
     return () => controller.abort();
   }, [
@@ -98,20 +103,49 @@ export default function GoalsPage() {
     age,
     formIsComplete,
     gender,
-    heightFeet,
     heightFeetValue,
-    heightInches,
     heightInchesValue,
-    weight,
     weightLbs,
   ]);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
+    setSubmitError("");
     setIsSubmitting(true);
 
-    // Temporary navigation until the backend is connected
-    router.push("/dashboard");
+    const form = new FormData(event.currentTarget);
+    const profile: ProfileGoals = {
+      age: Number(form.get("age")),
+      gender: String(form.get("gender")) as ProfileGoals["gender"],
+      activity_level: String(
+        form.get("activity"),
+      ) as ProfileGoals["activity_level"],
+      weight_lbs: Number(form.get("weight")),
+      height_feet: Number(form.get("height-feet")),
+      height_inches: Number(form.get("height-inches")),
+      goal: String(form.get("goal")) as ProfileGoals["goal"],
+      goal_pace: form.get("goal-pace")
+        ? (String(form.get("goal-pace")) as ProfileGoals["goal_pace"])
+        : undefined,
+      calorie_target: Number(form.get("calories")),
+      protein_target: Number(form.get("protein")),
+      carb_target: Number(form.get("carbs")),
+      fat_target: Number(form.get("fat")),
+    };
+
+    try {
+      await saveProfile(profile);
+      router.replace("/dashboard");
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Unable to save your nutrition goals.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -136,37 +170,68 @@ export default function GoalsPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-8 rounded-3xl bg-white p-8 shadow-sm"
+          className="space-y-8 rounded-3xl bg-white p-4 shadow-sm sm:p-8"
         >
-          {formIsComplete && (bmrLoading || bmr !== null || bmrError) && (
-            <section
-              aria-live="polite"
-              className="rounded-2xl border border-green-200 bg-green-700 p-5 text-white shadow-sm sm:p-6"
-            >
-              <p className="text-sm font-medium uppercase tracking-wide text-green-100">
-                Your estimated BMR
-              </p>
+          {formIsComplete &&
+            (calculationLoading ||
+              bmr !== null ||
+              tdee !== null ||
+              calculationError) && (
+              <section
+                aria-live="polite"
+                className="rounded-2xl border border-green-200 bg-green-700 p-5 text-white shadow-sm sm:p-6"
+              >
+                <h2 className="text-lg font-semibold">
+                  Your estimated daily energy needs
+                </h2>
 
-              {bmrLoading && (
-                <p className="mt-2 text-green-50">Calculating your result...</p>
-              )}
+                {calculationLoading && (
+                  <p className="mt-3 text-green-100">
+                    Calculating your results...
+                  </p>
+                )}
 
-              {bmr !== null && !bmrLoading && (
-                <p className="mt-1 text-3xl font-bold">
-                  {bmr.toLocaleString()} calories/day
+                {!calculationLoading && bmr !== null && tdee !== null && (
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <p className="text-sm text-green-100">
+                        Basal Metabolic Rate (BMR)
+                      </p>
+                      <p className="mt-1 text-3xl font-bold">
+                        {bmr.toLocaleString()}
+                      </p>
+                      <p className="text-xs text-green-100">
+                        Calories/day at rest
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-sm text-green-100">
+                        Total Daily Energy Expenditure (TDEE)
+                      </p>
+                      <p className="mt-1 text-3xl font-bold">
+                        {tdee.toLocaleString()}
+                      </p>
+                      <p className="text-xs text-green-100">
+                        Estimated calories/day with activity
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {calculationError && (
+                  <p className="mt-3 text-sm text-red-100">
+                    {calculationError}
+                  </p>
+                )}
+
+                <p className="mt-4 text-sm text-green-100">
+                  TDEE estimates the calories needed to maintain your current
+                  weight based on your activity level. Your personal calorie
+                  target can be adjusted below.
                 </p>
-              )}
-
-              {bmrError && (
-                <p className="mt-2 text-sm text-green-100">{bmrError}</p>
-              )}
-
-              <p className="mt-3 text-sm text-green-100">
-                This is the estimated energy your body uses at rest. Activity
-                level will be used later to calculate your daily calorie target.
-              </p>
-            </section>
-          )}
+              </section>
+            )}
 
           <section className="rounded-2xl border border-green-100 bg-green-50/40 p-5 sm:p-6">
             <h2 className="mb-5 text-xl font-semibold text-green-950">
@@ -178,7 +243,9 @@ export default function GoalsPage() {
             </p>
 
             <fieldset className="mb-6">
-              <legend className="mb-2 font-medium text-green-950">Gender</legend>
+              <legend className="mb-2 font-medium text-green-950">
+                Gender
+              </legend>
 
               <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
                 <label
@@ -236,7 +303,11 @@ export default function GoalsPage() {
                   className="w-full rounded-xl border border-green-200 px-4 py-3 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
                   required
                   onChange={(event) =>
-                    setAge(event.target.value === "" ? "" : Number(event.target.value))
+                    setAge(
+                      event.target.value === ""
+                        ? ""
+                        : Number(event.target.value),
+                    )
                   }
                 />
               </div>
@@ -285,7 +356,10 @@ export default function GoalsPage() {
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="height-feet" className="mb-2 block text-sm text-gray-600">
+                    <label
+                      htmlFor="height-feet"
+                      className="mb-2 block text-sm text-gray-600"
+                    >
                       Feet <span className="text-gray-400">(ft)</span>
                     </label>
                     <input
@@ -303,7 +377,10 @@ export default function GoalsPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="height-inches" className="mb-2 block text-sm text-gray-600">
+                    <label
+                      htmlFor="height-inches"
+                      className="mb-2 block text-sm text-gray-600"
+                    >
                       Inches <span className="text-gray-400">(in)</span>
                     </label>
                     <input
@@ -388,6 +465,41 @@ export default function GoalsPage() {
               These can be adjusted later.
             </p>
 
+            <NutritionSuggestions
+              person={
+                formIsComplete
+                  ? {
+                      age: age as number,
+                      gender: gender as ProfileGoals["gender"],
+                      activity_level:
+                        activityLevel as ProfileGoals["activity_level"],
+                      weight_lbs: weightLbs,
+                      height_feet: heightFeetValue,
+                      height_inches: heightInchesValue,
+                    }
+                  : null
+              }
+              goal={goal}
+              pace={goalPace}
+              targets={{
+                calorie_target: calorieTarget,
+                protein_target: proteinTarget,
+                carb_target: carbTarget,
+                fat_target: fatTarget,
+              }}
+              disabled={isSubmitting}
+              onApply={(targets) => {
+                if (targets.calorie_target != null)
+                  setCalorieTarget(String(targets.calorie_target));
+                if (targets.protein_target != null)
+                  setProteinTarget(String(targets.protein_target));
+                if (targets.carb_target != null)
+                  setCarbTarget(String(targets.carb_target));
+                if (targets.fat_target != null)
+                  setFatTarget(String(targets.fat_target));
+              }}
+            />
+
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="calories" className="mb-2 block font-medium">
@@ -399,10 +511,26 @@ export default function GoalsPage() {
                   name="calories"
                   type="number"
                   placeholder="2000"
+                  value={calorieTarget}
+                  onChange={(event) => setCalorieTarget(event.target.value)}
                   min="1"
                   className="w-full rounded-xl border border-green-200 px-4 py-3 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
                   required
                 />
+
+                {tdee !== null && !calculationLoading && (
+                  <div className="mt-3">
+                    <p className="text-sm text-gray-600">
+                      Estimated maintenance calories:{" "}
+                      <strong>{tdee.toLocaleString()} kcal/day</strong>
+                    </p>
+
+                    <p className="mt-1 text-xs text-gray-500">
+                      Use the suggestions above to apply a target adjusted for
+                      your goal.
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -414,6 +542,9 @@ export default function GoalsPage() {
                   id="protein"
                   name="protein"
                   type="number"
+                  step="any"
+                  value={proteinTarget}
+                  onChange={(event) => setProteinTarget(event.target.value)}
                   placeholder="140"
                   min="1"
                   className="w-full rounded-xl border border-green-200 px-4 py-3 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
@@ -430,6 +561,9 @@ export default function GoalsPage() {
                   id="carbs"
                   name="carbs"
                   type="number"
+                  step="any"
+                  value={carbTarget}
+                  onChange={(event) => setCarbTarget(event.target.value)}
                   placeholder="250"
                   min="1"
                   className="w-full rounded-xl border border-green-200 px-4 py-3 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
@@ -446,6 +580,9 @@ export default function GoalsPage() {
                   id="fat"
                   name="fat"
                   type="number"
+                  step="any"
+                  value={fatTarget}
+                  onChange={(event) => setFatTarget(event.target.value)}
                   placeholder="65"
                   min="1"
                   className="w-full rounded-xl border border-green-200 px-4 py-3 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
@@ -460,8 +597,16 @@ export default function GoalsPage() {
             disabled={isSubmitting}
             className="w-full rounded-full bg-green-700 px-6 py-3 font-semibold text-white transition hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isSubmitting ? "Saving your preferences..." : "Continue to dashboard"}
+            {isSubmitting
+              ? "Saving your preferences..."
+              : "Continue to dashboard"}
           </button>
+
+          {submitError && (
+            <p role="alert" className="text-center text-sm text-red-600">
+              {submitError}
+            </p>
+          )}
         </form>
       </div>
     </main>

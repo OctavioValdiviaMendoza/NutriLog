@@ -1,0 +1,3 @@
+# Placeholder — model weights go here after training.
+# Run: cd ml && python train.py
+# This file exists so Git tracks the model/ directory.

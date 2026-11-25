@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getProfile, login } from "@/lib/api";
+import type { ApiError } from "@/lib/types";
 
 export default function LoginPage() {
   const [message, setMessage] = useState("");
@@ -10,31 +12,39 @@ export default function LoginPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     setMessage("");
     setIsSubmitting(true);
 
     const form = new FormData(event.currentTarget);
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-
     try {
-      const response = await fetch(`${apiUrl}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.get("email"),
-          password: form.get("password"),
-        }),
+      await login({
+        email: String(form.get("email") ?? ""),
+        password: String(form.get("password") ?? ""),
       });
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail ?? "Unable to log in.");
-      }
+      try {
+        await getProfile();
 
-      sessionStorage.setItem("nutrilog_user", JSON.stringify(data));
-      router.push("/dashboard");
+        // Existing profile: go to dashboard.
+        router.replace("/dashboard");
+      } catch (error) {
+        const apiError = error as Error & ApiError;
+
+        if (apiError.status === 404) {
+          // No profile: complete onboarding.
+          router.replace("/onboarding/goals");
+        } else {
+          // Do not treat network or server errors as missing profiles.
+          throw error;
+        }
+      }
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Unable to log in.");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to log in."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -61,6 +71,7 @@ export default function LoginPage() {
           placeholder="you@example.com"
           className="mb-5 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
+          autoComplete="email"
         />
 
         <label className="mb-2 block font-medium text-black">Password</label>
@@ -70,6 +81,7 @@ export default function LoginPage() {
           placeholder="Your password"
           className="mb-6 w-full rounded-xl border px-4 py-3 text-gray-700"
           required
+          autoComplete="current-password"
         />
 
         <button
@@ -81,7 +93,7 @@ export default function LoginPage() {
         </button>
 
         {message && (
-          <p className="mt-4 text-center text-sm text-green-700">{message}</p>
+          <p role="alert" className="mt-4 text-center text-sm text-red-700">{message}</p>
         )}
       </form>
     </main>

@@ -1,0 +1,157 @@
+{
+  "version": "v1",
+  "dataset": "FoodSeg103",
+  "min_pixels": 100,
+  "keep_negatives": true,
+  "seed": 42,
+  "categories": [
+    {
+      "label": "rice",
+      "display": "Rice",
+      "foodseg_ids": [
+        66
+      ],
+      "foodseg_names": [
+        "rice"
+      ],
+      "train_images": 464,
+      "test_images": 206
+    },
+    {
+      "label": "bread",
+      "display": "Bread",
+      "foodseg_ids": [
+        58
+      ],
+      "foodseg_names": [
+        "bread"
+      ],
+      "train_images": 990,
+      "test_images": 414
+    },
+    {
+      "label": "noodles",
+      "display": "Noodles",
+      "foodseg_ids": [
+        65,
+        64
+      ],
+      "foodseg_names": [
+        "noodles",
+        "pasta"
+      ],
+      "train_images": 301,
+      "test_images": 123
+    },
+    {
+      "label": "potatoes",
+      "display": "Potatoes",
+      "foodseg_ids": [
+        70
+      ],
+      "foodseg_names": [
+        "potato"
+      ],
+      "train_images": 785,
+      "test_images": 306
+    },
+    {
+      "label": "broccoli",
+      "display": "Broccoli",
+      "foodseg_ids": [
+        87
+      ],
+      "foodseg_names": [
+        "broccoli"
+      ],
+      "train_images": 703,
+      "test_images": 309
+    },
+    {
+      "label": "carrots",
+      "display": "Carrots",
+      "foodseg_ids": [
+        84
+      ],
+      "foodseg_names": [
+        "carrot"
+      ],
+      "train_images": 881,
+      "test_images": 398
+    },
+    {
+      "label": "tomatoes",
+      "display": "Tomatoes",
+      "foodseg_ids": [
+        73
+      ],
+      "foodseg_names": [
+        "tomato"
+      ],
+      "train_images": 790,
+      "test_images": 349
+    },
+    {
+      "label": "lettuce",
+      "display": "Lettuce",
+      "foodseg_ids": [
+        80,
+        102
+      ],
+      "foodseg_names": [
+        "lettuce",
+        "salad"
+      ],
+      "train_images": 415,
+      "test_images": 181
+    },
+    {
+      "label": "eggs",
+      "display": "Eggs",
+      "foodseg_ids": [
+        24
+      ],
+      "foodseg_names": [
+        "egg"
+      ],
+      "train_images": 223,
+      "test_images": 69
+    },
+    {
+      "label": "fish",
+      "display": "Fish",
+      "foodseg_ids": [
+        54
+      ],
+      "foodseg_names": [
+        "fish"
+      ],
+      "train_images": 258,
+      "test_images": 95
+    },
+    {
+      "label": "steak",
+      "display": "Steak",
+      "foodseg_ids": [
+        46
+      ],
+      "foodseg_names": [
+        "steak"
+      ],
+      "train_images": 728,
+      "test_images": 337
+    },
+    {
+      "label": "poultry",
+      "display": "Poultry",
+      "foodseg_ids": [
+        48
+      ],
+      "foodseg_names": [
+        "chicken duck"
+      ],
+      "train_images": 848,
+      "test_images": 394
+    }
+  ]
+}

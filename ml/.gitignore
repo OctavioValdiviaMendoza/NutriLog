@@ -1,0 +1,20 @@
+# ml/.gitignore
+
+# Raw dataset archives and images — download locally, never commit
+data/FoodSeg103/
+data/*.tar.gz
+data/*.zip
+
+# Model weights — train outside the hosted app; track with LFS if needed
+model/weights.pth
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
